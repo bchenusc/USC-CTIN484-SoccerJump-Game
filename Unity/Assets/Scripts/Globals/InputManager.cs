@@ -35,6 +35,14 @@ public class InputManager : Singleton{
 	private HashSet<KeyManager> mEnabledKeys = new HashSet<KeyManager>();
 	#endregion
 
+	#region SoccerJump Variables
+	private float mMinJumpPower = 1000;
+	private float mExtraLiftPower = 5000;
+	private int mExtraLiftRepetition = 100;
+	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
+	public float ExtraLiftPower { get { return mExtraLiftPower; } set { mExtraLiftPower = value;}}
+	public int ExtraLiftRepetition { get { return mExtraLiftRepetition; } set { mExtraLiftRepetition = value;}}
+	#endregion
 
 	// Remove Functions if not needed.
 	void Update () {

@@ -36,8 +36,8 @@ public class InputManager : Singleton{
 	#endregion
 
 	#region SoccerJump Variables
-	private float mMinJumpPower = 1000;
-	private float mExtraLiftPower = 5000;
+	private float mMinJumpPower = 800;
+	private float mExtraLiftPower = 1500;
 	private int mExtraLiftRepetition = 100;
 	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
 	public float ExtraLiftPower { get { return mExtraLiftPower; } set { mExtraLiftPower = value;}}
@@ -46,6 +46,11 @@ public class InputManager : Singleton{
 
 	// Remove Functions if not needed.
 	void Update () {
+		//HACK - REMOVE
+		if (Input.GetKeyDown(KeyCode.R)) {
+			SingletonObject.Get.getGameState().LoadLevel(0);
+			return;
+		}
 		if (OnMouseClick != null) {
 			if (mCanLeftClick > 0 && Input.GetMouseButtonDown(0)) {OnMouseClick(0);}
 			if (mCanRightClick > 0 && Input.GetMouseButtonDown(1)) {OnMouseClick(1);}

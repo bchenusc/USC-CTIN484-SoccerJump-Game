@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Gameplay\PlayerMove.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\PlayerRealign.cs" />
      <Compile Include="Assets\Scripts\Globals\Delegates.cs" />
      <Compile Include="Assets\Scripts\Globals\GameState.cs" />
      <Compile Include="Assets\Scripts\Globals\InputManager.cs" />

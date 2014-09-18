@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour {
 
 	// Globals
 	private Timer timerManager;
+	private InputManager inputManager;
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 0;
@@ -22,7 +23,7 @@ public class PlayerMove : MonoBehaviour {
 	void Start () {
 		mID = gameObject.GetInstanceID().ToString();
 		SingletonObject singleton = SingletonObject.Get;
-		InputManager inputManager = singleton.getInputManager();
+		inputManager = singleton.getInputManager();
 		timerManager = singleton.getTimer();
 		// Registers
 		inputManager.RegisterLeftClickDown(OnMouseDown);
@@ -32,6 +33,11 @@ public class PlayerMove : MonoBehaviour {
 		mMinJumpPower = inputManager.MinJumpPower;
 		mExtraLiftPower = inputManager.ExtraLiftPower;
 		mExtraLiftRepetition = inputManager.ExtraLiftRepetition;
+	}
+
+	void OnDestroy() {
+		inputManager.DeregisterLeftClickUp(OnMouseUp);
+		inputManager.DeregisterLeftClickDown(OnMouseDown);
 	}
 
 	private void OnMouseDown(int whichMouseButton){

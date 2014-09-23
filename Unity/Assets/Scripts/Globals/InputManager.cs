@@ -36,13 +36,42 @@ public class InputManager : Singleton{
 	#endregion
 
 	#region SoccerJump Variables
-	private float mMinJumpPower = 800;
-	private float mExtraLiftPower = 1500;
-	private int mExtraLiftRepetition = 100;
+	private float mMinJumpPower = 600;
+	private float mExtraLiftPower = 0;
+	private int mExtraLiftRepetition = 0;
 	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
 	public float ExtraLiftPower { get { return mExtraLiftPower; } set { mExtraLiftPower = value;}}
 	public int ExtraLiftRepetition { get { return mExtraLiftRepetition; } set { mExtraLiftRepetition = value;}}
 	#endregion
+
+	#region PlayerContorls
+	public KeyCode key_p1_jump = KeyCode.G;
+	public KeyCode[] key_p1_tilt;
+	public KeyCode key_p2_jump = KeyCode.Period;
+	public KeyCode[] key_p2_tilt;
+
+	#endregion
+
+	void Start() {
+		key_p1_tilt = new KeyCode[4] {KeyCode.W,
+			KeyCode.S, 
+			KeyCode.A, 
+			KeyCode.D};
+		key_p2_tilt = new KeyCode[4] {KeyCode.UpArrow,
+			KeyCode.DownArrow, 
+			KeyCode.LeftArrow, 
+			KeyCode.RightArrow};
+		RegisterKeyCode (KeyCode.W, true, false, false);
+		RegisterKeyCode (KeyCode.S, true, false, false);
+		RegisterKeyCode (KeyCode.A, true, false, false);
+		RegisterKeyCode (KeyCode.D, true, false, false);
+		RegisterKeyCode (KeyCode.UpArrow, true, false, false);
+		RegisterKeyCode (KeyCode.DownArrow, true, false, false);
+		RegisterKeyCode (KeyCode.LeftArrow, true, false, false);
+		RegisterKeyCode (KeyCode.RightArrow, true, false, false);
+		RegisterKeyCode (KeyCode.G, true, false, false);
+		RegisterKeyCode (KeyCode.Period, true, false, false);
+	}
 
 	// Remove Functions if not needed.
 	void Update () {

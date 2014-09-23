@@ -7,62 +7,122 @@ public class PlayerMove : MonoBehaviour {
 	string mID;
 
 	// Globals
-	private Timer timerManager;
-	private InputManager inputManager;
+	//private Timer timerManager;
+	//private InputManager inputManager;
+
+	// Dependencies
+	Transform mRealignForcePos;
+	PlayerScript pScript;
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 0;
 	private float mExtraLiftPower = 0;
 	private int mExtraLiftRepetition = 0;
 
-	// Player movement gameplay
-	private bool mIsGrounded = true;
-	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
+	// User control force
+	private float mUserForce = 1500;
+	private bool allowJump = true;
+
 
 	// Use this for initialization
 	void Start () {
+		RegisterButtons ();
 		mID = gameObject.GetInstanceID().ToString();
-		SingletonObject singleton = SingletonObject.Get;
-		inputManager = singleton.getInputManager();
-		timerManager = singleton.getTimer();
-		// Registers
-		inputManager.RegisterLeftClickDown(OnMouseDown);
-		inputManager.RegisterLeftClickUp(OnMouseUp);
-		//inputManager.RegisterLeftClickUp(Remove
+		//SingletonObject singleton = SingletonObject.Get;
+		//Debug.Log (singleton);
+		//inputManager = singleton.getInputManager();
+		//timerManager = singleton.getTimer();
+		pScript = gameObject.GetComponent<PlayerScript> ();
+		mRealignForcePos = transform.FindChild ("UpPoint");
+
+
+
 		// Variable initialization.
-		mMinJumpPower = inputManager.MinJumpPower;
-		mExtraLiftPower = inputManager.ExtraLiftPower;
-		mExtraLiftRepetition = inputManager.ExtraLiftRepetition;
+		mMinJumpPower = SingletonObject.Get.getInputManager().MinJumpPower;
+		//mExtraLiftPower = SingletonObject.Get.getInputManager().ExtraLiftPower;
+		//mExtraLiftRepetition = SingletonObject.Get.getInputManager().ExtraLiftRepetition;
+	}
+
+	void RegisterButtons() {
+//		
+//		inputManager.RegisterLeftClickDown(OnMouseDown);
+//		inputManager.RegisterLeftClickUp(OnMouseUp);
+
+		SingletonObject.Get.getInputManager().RegisterOnKeyDown (OnKeyDown);
+	}
+
+	void DeRegisterButtons() {
+//		inputManager.DeregisterLeftClickUp(OnMouseUp);
+//		inputManager.DeregisterLeftClickDown(OnMouseDown);
+
+		SingletonObject.Get.getInputManager().DeregisterOnKeydown (OnKeyDown);
 	}
 
 	void OnDestroy() {
-		inputManager.DeregisterLeftClickUp(OnMouseUp);
-		inputManager.DeregisterLeftClickDown(OnMouseDown);
+		DeRegisterButtons ();
 	}
 
-	private void OnMouseDown(int whichMouseButton){
-		if (whichMouseButton == 0) { Jump(); } // If Left mouse button, then jump.
+
+	private void OnKeyDown(KeyCode key) {
+		if (pScript.IsGrounded == false)
+						return;
+
+		if (pScript.PlayerNumber == 1) {
+			// Jump
+			InputManager inputManager = SingletonObject.Get.getInputManager();
+			if (key == inputManager.key_p1_jump) {
+				Jump();
+				return;
+			}
+			// Tilt left
+			if (key == inputManager.key_p1_tilt[2]) {
+				AddForceInDirection(-Vector3.right);
+				return;
+			}
+			// Tilt right
+			if (key == inputManager.key_p1_tilt[3]) {
+				AddForceInDirection(Vector3.right);
+				return;
+			}
+			return;
+		}
+		if (pScript.PlayerNumber == 2) {
+			InputManager inputManager = SingletonObject.Get.getInputManager();
+			// Jump
+			if (key == inputManager.key_p2_jump) {
+				Jump();
+				return;
+			}
+
+			// Tilt left
+			if (key == inputManager.key_p2_tilt[2]) {
+				AddForceInDirection(-Vector3.right);
+				return;
+			}
+			// Tilt right
+			if (key == inputManager.key_p2_tilt[3]) {
+				AddForceInDirection(Vector3.right);
+				return;
+			}
+			return;
+		}
+
 	}
 
-	private void OnMouseUp(int whichMouseButton) {
-		if (whichMouseButton == 0) { RemoveExtraJumpLift(); } // If Left mouse button up, then no jump;
+	private void AddForceInDirection(Vector3 direction) {
+		rigidbody.AddForceAtPosition(mUserForce * direction, mRealignForcePos.position);
 	}
 
 	private void Jump() {
-		if (!IsGrounded) return; // Must be grounded to jump.
+		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 		// Jump in the direction of the up vector.
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
-		timerManager.Add(mID + "extrajumplift",
-		                 ExtraJumpLift, 0.1f, true, mExtraLiftRepetition, null);
+		allowJump = false;
+		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",canJump,0.1f,false, 0, null);
 	}
 
-	private void ExtraJumpLift() {
-		Debug.Log("repeat");
-		rigidbody.AddForce(transform.up * mExtraLiftPower);
-	}
-
-	private void RemoveExtraJumpLift() {
-		timerManager.Remove(mID + "extrajumplift");
+	private void canJump() {
+		allowJump = true;
 	}
 }
 

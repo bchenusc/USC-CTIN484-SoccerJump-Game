@@ -7,19 +7,24 @@ using System.Collections;
 
 public class PlayerRealign : MonoBehaviour
 {
-	float force = 500; // up force
+	float force = 0; // up force
 	Transform mRealignForcePos;
 	float mODot = 0;
 
+	PlayerScript pScript;
+
 	void Start() {
+		pScript = gameObject.GetComponent<PlayerScript> ();
 		mRealignForcePos = transform.FindChild("UpPoint");
 		Transform centerOfMass = transform.FindChild("CenterOfMass");
 		rigidbody.centerOfMass = centerOfMass.position - transform.position;
 	}
 	
 	void FixedUpdate(){
-		mODot = OppositeDot(Vector3.up, mRealignForcePos.position - transform.position);
-		rigidbody.AddForceAtPosition(ForceScale(mODot)* Vector3.up, mRealignForcePos.position);
+		if (pScript.IsGrounded) {
+			mODot = OppositeDot(Vector3.up, mRealignForcePos.position - transform.position);
+			rigidbody.AddForceAtPosition(ForceScale(mODot)* Vector3.up * force, mRealignForcePos.position, ForceMode.Impulse);
+		}
 	}
 
 	float ForceScale(float oDot) {

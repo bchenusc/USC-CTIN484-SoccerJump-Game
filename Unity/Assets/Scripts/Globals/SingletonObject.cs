@@ -73,6 +73,8 @@ public class SingletonObject : MonoBehaviour {
 				if (_instance == null)
 				{
 					_instance = GameObject.FindGameObjectWithTag("SingletonObject").GetComponent<SingletonObject>();
+					if (_instance == null) 
+						return null;
 					
 					if ( FindObjectsOfType(typeof(SingletonObject)).Length > 1 )
 					{

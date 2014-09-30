@@ -42,78 +42,78 @@ public class PlayerMove : MonoBehaviour {
 		if (pScript.IsGrounded == false)
 			return;
 			InputManager inputManager = SingletonObject.Get.getInputManager();
-		if (pScript.PlayerNumber == 1) {
-			// Jump
-			if (key == inputManager.key_p1_jump) {
-				Jump();
-				return;
-			}
-			return;
-		} else {
-			if (pScript.PlayerNumber == 2) {
-				// Jump
-				if (key == inputManager.key_p2_jump) {
-					Jump();
-					return;
-				}
-				return;
-			}
-		}
+//		if (pScript.PlayerNumber == 1) {
+//			// Jump
+//			if (key == inputManager.key_p1_jump) {
+//				Jump();
+//				return;
+//			}
+//			return;
+//		} else {
+//			if (pScript.PlayerNumber == 2) {
+//				// Jump
+//				if (key == inputManager.key_p2_jump) {
+//					Jump();
+//					return;
+//				}
+//				return;
+//			}
+//		}
 	}
 
 
 	private void OnKeyHeld(KeyCode key) {
 
 
-		if (pScript.PlayerNumber == 1) {
-			// Jump
-			InputManager inputManager = SingletonObject.Get.getInputManager();
-			if (key == inputManager.key_p1_jump) {
-				Jump();
-				return;
-			}
-			// Tilt forward
-			if (key == inputManager.key_p1_tilt[0]) {
-				AddForceInDirection(Vector3.forward);
-				return;
-			}
-			// Tilt backward
-			if (key == inputManager.key_p1_tilt[1]) {
-				AddForceInDirection(-Vector3.forward);
-				return;
-			}
-			// Tilt left
-			if (key == inputManager.key_p1_tilt[2]) {
-				AddForceInDirection(-Vector3.right);
-				return;
-			}
-			// Tilt right
-			if (key == inputManager.key_p1_tilt[3]) {
-				AddForceInDirection(Vector3.right);
-				return;
-			}
-			return;
-		}
-		if (pScript.PlayerNumber == 2) {
-			InputManager inputManager = SingletonObject.Get.getInputManager();
-			// Jump
-			if (key == inputManager.key_p2_jump) {
-				Jump();
-				return;
-			}
-
-			// Tilt left
-			if (key == inputManager.key_p2_tilt[2]) {
-				AddForceInDirection(-Vector3.right);
-				return;
-			}
-			// Tilt right
-			if (key == inputManager.key_p2_tilt[3]) {
-				AddForceInDirection(Vector3.right);
-				return;
-			}
-			return;
-		}
+//		if (pScript.PlayerNumber == 1) {
+//			// Jump
+//			InputManager inputManager = SingletonObject.Get.getInputManager();
+//			if (key == inputManager.key_p1_jump) {
+//				Jump();
+//				return;
+//			}
+//			// Tilt forward
+//			if (key == inputManager.key_p1_tilt[0]) {
+//				AddForceInDirection(Vector3.forward);
+//				return;
+//			}
+//			// Tilt backward
+//			if (key == inputManager.key_p1_tilt[1]) {
+//				AddForceInDirection(-Vector3.forward);
+//				return;
+//			}
+//			// Tilt left
+//			if (key == inputManager.key_p1_tilt[2]) {
+//				AddForceInDirection(-Vector3.right);
+//				return;
+//			}
+//			// Tilt right
+//			if (key == inputManager.key_p1_tilt[3]) {
+//				AddForceInDirection(Vector3.right);
+//				return;
+//			}
+//			return;
+//		}
+//		if (pScript.PlayerNumber == 2) {
+//			InputManager inputManager = SingletonObject.Get.getInputManager();
+//			// Jump
+//			if (key == inputManager.key_p2_jump) {
+//				Jump();
+//				return;
+//			}
+//
+//			// Tilt left
+//			if (key == inputManager.key_p2_tilt[2]) {
+//				AddForceInDirection(-Vector3.right);
+//				return;
+//			}
+//			// Tilt right
+//			if (key == inputManager.key_p2_tilt[3]) {
+//				AddForceInDirection(Vector3.right);
+//				return;
+//			}
+//			return;
+//		}
 
 	}
 

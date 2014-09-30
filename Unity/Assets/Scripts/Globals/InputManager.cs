@@ -35,10 +35,20 @@ public class InputManager : Singleton{
 	private HashSet<KeyManager> mEnabledKeys = new HashSet<KeyManager>();
 	#endregion
 
+	#region Number of Players
+	private List<PlayerConfig> mPlayers;
+	#endregion
+
 	#region SoccerJump Variables
 	private float mMinJumpPower = 600;
 	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
 	#endregion
+
+
+	new void Start() {
+		base.Start ();
+		mPlayers = new List<PlayerConfig>();
+	}
 
 	public void RegisterPlayerControls() {
 
@@ -48,7 +58,7 @@ public class InputManager : Singleton{
 	void Update () {
 		//HACK - REMOVE
 		if (Input.GetKeyDown(KeyCode.R)) {
-			SingletonObject.Get.getGameState().LoadLevel(0);
+			Application.LoadLevel(0);
 			return;
 		}
 		if (OnMouseClick != null) {

@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Prefabs\Camera\CameraFollow.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\BallSpike.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PlayerConfig.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PlayerMove.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PlayerRealign.cs" />
@@ -59,6 +58,7 @@
      <Compile Include="Assets\Scripts\Globals\SingletonObject.cs" />
      <Compile Include="Assets\Scripts\Globals\Timer.cs" />
      <Compile Include="Assets\Scripts\Globals\Transition.cs" />
+     <Compile Include="Assets\Scripts\Test\CONTROLS.cs" />
      <Compile Include="Assets\Scripts\Test\test_Global_InputManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>

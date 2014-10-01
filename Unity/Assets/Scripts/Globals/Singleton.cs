@@ -15,9 +15,6 @@ public abstract class Singleton : MonoBehaviour {
 		DestroyIfMoreThanOneOnObject();
 	}
 
-	protected void Start(){
-	}
-
 	private void DestroyIfNotSingletonObject(){
 		//Singletons can only be placed on singleton objects.
 		if (transform.GetComponent<SingletonObject>() == null){

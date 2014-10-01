@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+
 /*
 	 * How to use:
 	 * 
@@ -36,7 +37,8 @@ public class InputManager : Singleton{
 	#endregion
 
 	#region Number of Players
-	private List<PlayerConfig> mPlayers;
+	public PlayerConfig[] mPlayers;
+	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
 
 	#region SoccerJump Variables
@@ -45,13 +47,15 @@ public class InputManager : Singleton{
 	#endregion
 
 
-	new void Start() {
-		base.Start ();
-		mPlayers = new List<PlayerConfig>();
-	}
-
-	public void RegisterPlayerControls() {
-
+	void Start() {
+		mPlayers = new PlayerConfig[4] 
+		{
+			new PlayerConfig(KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3),
+			new PlayerConfig(KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.RightArrow),
+			new PlayerConfig(KeyCode.I, KeyCode.J, KeyCode.L),
+			new PlayerConfig(KeyCode.Z, KeyCode.X, KeyCode.C)
+		};
+		Debug.Log ("Players instantiated");
 	}
 
 	// Remove Functions if not needed.
@@ -103,10 +107,13 @@ public class InputManager : Singleton{
 	public void RegisterKeyCode(KeyCode key, bool onDown, bool onUp, bool onHeld) {
 		mEnabledKeys.Add(new KeyManager(key, onDown, onHeld, onUp));
 	}
+	public void DeRegisterAllKeyCodes () {
+		mEnabledKeys.Clear();
+	}
 	public void RegisterOnKeyDown(ActionKey a) {
 		OnKeyDown += a;
 	}
-	public void DeregisterOnKeydown(ActionKey a) {
+	public void DeregisterOnKeyDown(ActionKey a) {
 		OnKeyDown -= a;
 	}
 	public void RegisterOnKeyUp(ActionKey a) {

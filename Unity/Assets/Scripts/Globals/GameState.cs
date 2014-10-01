@@ -22,6 +22,8 @@ public class GameState : Singleton {
 	}
 	public GAMESTATE mGameState = GAMESTATE.MAINMENU;
 
+	public int mNumberOfPlayers = 0;
+
 
 #region MonoBehaviour functions
 	void Start(){
@@ -37,6 +39,12 @@ public class GameState : Singleton {
 
 	}
 #endregion
+
+	// Use settings menu to control the controls.
+	public void SetNumberOfPlayers(int players) {
+
+	}
+
 
 #region Inherited functions
 	protected override void DestroyIfMoreThanOneOnObject(){

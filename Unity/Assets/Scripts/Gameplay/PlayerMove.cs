@@ -26,12 +26,19 @@ public class PlayerMove : MonoBehaviour {
 
 	void RegisterButtons() {
 		SingletonObject.Get.getInputManager().RegisterOnKeyHeld (OnKeyHeld);
-		SingletonObject.Get.getInputManager().RegisterOnKeyHeld (OnKeyDown);
+		SingletonObject.Get.getInputManager().RegisterOnKeyDown (OnKeyDown);
+	}
+
+	void RegisterKeys() {
+		InputManager iManager = SingletonObject.Get.getInputManager();
+		iManager.mPlayers[
+		iManager.DeRegisterAllKeyCodes();
+		iManager.RegisterKeyCode(
 	}
 
 	void DeRegisterButtons() {
 		SingletonObject.Get.getInputManager().DeregisterOnKeyHeld (OnKeyHeld);
-		SingletonObject.Get.getInputManager().DeregisterOnKeyHeld (OnKeyDown);
+		SingletonObject.Get.getInputManager().DeregisterOnKeyDown (OnKeyDown);
 	}
 
 	void OnDestroy() {
@@ -39,82 +46,29 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	private void OnKeyDown(KeyCode key) {
+		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeydown: Pressed"); }
 		if (pScript.IsGrounded == false)
 			return;
-			InputManager inputManager = SingletonObject.Get.getInputManager();
-//		if (pScript.PlayerNumber == 1) {
-//			// Jump
-//			if (key == inputManager.key_p1_jump) {
-//				Jump();
-//				return;
-//			}
-//			return;
-//		} else {
-//			if (pScript.PlayerNumber == 2) {
-//				// Jump
-//				if (key == inputManager.key_p2_jump) {
-//					Jump();
-//					return;
-//				}
-//				return;
-//			}
-//		}
+		// Maybe cache in player
+		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber];
+		if (key == pConfig.Jump) {
+			Jump();
+			return;
+		}
 	}
 
 
 	private void OnKeyHeld(KeyCode key) {
-
-
-//		if (pScript.PlayerNumber == 1) {
-//			// Jump
-//			InputManager inputManager = SingletonObject.Get.getInputManager();
-//			if (key == inputManager.key_p1_jump) {
-//				Jump();
-//				return;
-//			}
-//			// Tilt forward
-//			if (key == inputManager.key_p1_tilt[0]) {
-//				AddForceInDirection(Vector3.forward);
-//				return;
-//			}
-//			// Tilt backward
-//			if (key == inputManager.key_p1_tilt[1]) {
-//				AddForceInDirection(-Vector3.forward);
-//				return;
-//			}
-//			// Tilt left
-//			if (key == inputManager.key_p1_tilt[2]) {
-//				AddForceInDirection(-Vector3.right);
-//				return;
-//			}
-//			// Tilt right
-//			if (key == inputManager.key_p1_tilt[3]) {
-//				AddForceInDirection(Vector3.right);
-//				return;
-//			}
-//			return;
-//		}
-//		if (pScript.PlayerNumber == 2) {
-//			InputManager inputManager = SingletonObject.Get.getInputManager();
-//			// Jump
-//			if (key == inputManager.key_p2_jump) {
-//				Jump();
-//				return;
-//			}
-//
-//			// Tilt left
-//			if (key == inputManager.key_p2_tilt[2]) {
-//				AddForceInDirection(-Vector3.right);
-//				return;
-//			}
-//			// Tilt right
-//			if (key == inputManager.key_p2_tilt[3]) {
-//				AddForceInDirection(Vector3.right);
-//				return;
-//			}
-//			return;
-//		}
-
+		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyheld: Pressed"); }
+		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber];
+		if (key == pConfig.Right) {
+			AddForceInDirection(Vector3.right);
+			return;
+		}
+		if (key == pConfig.Left) {
+			AddForceInDirection(Vector3.left);
+			return;
+		}
 	}
 
 	private void AddForceInDirection(Vector3 direction) {

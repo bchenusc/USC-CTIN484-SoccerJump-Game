@@ -10,7 +10,7 @@ public class PlayerConfig {
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 	public KeyCode Jump { get { return mJump; } set { mJump = value; }}
 	public KeyCode Left { get { return mLeft; } set { mLeft = value; }}
-	public KeyCode Right { get { return mRight; } set { mJump = value; }}
+	public KeyCode Right { get { return mRight; } set { mRight = value; }}
 
 	public PlayerConfig (KeyCode jump, KeyCode left, KeyCode right) {
 		Jump = jump;

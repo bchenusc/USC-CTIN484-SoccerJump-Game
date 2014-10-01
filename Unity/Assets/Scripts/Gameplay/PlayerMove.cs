@@ -30,15 +30,20 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	void RegisterKeys() {
-		InputManager iManager = SingletonObject.Get.getInputManager();
-		iManager.mPlayers[
+		InputManager iManager = SingletonObject.Get.getInputManager ();
+		PlayerConfig player = iManager.mPlayers [pScript.PlayerNumber];
 		iManager.DeRegisterAllKeyCodes();
-		iManager.RegisterKeyCode(
+		// Determines whether keys are registered for Key up, key down, or key held.
+		iManager.RegisterKeyCode(player.Jump, true, false, false);
+		iManager.RegisterKeyCode(player.Left, false, false, true);
+		iManager.RegisterKeyCode(player.Right, false, false, true);
 	}
 
 	void DeRegisterButtons() {
-		SingletonObject.Get.getInputManager().DeregisterOnKeyHeld (OnKeyHeld);
-		SingletonObject.Get.getInputManager().DeregisterOnKeyDown (OnKeyDown);
+		InputManager iManager = SingletonObject.Get.getInputManager ();
+		iManager.DeRegisterAllKeyCodes ();
+		iManager.DeregisterOnKeyHeld (OnKeyHeld);
+		iManager.DeregisterOnKeyDown (OnKeyDown);
 	}
 
 	void OnDestroy() {

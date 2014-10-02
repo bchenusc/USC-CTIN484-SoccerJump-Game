@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent (typeof (Rigidbody))]
 
-public class PlayerMove : MonoBehaviour {
+public class PlayerMove : GameplayObject {
 	// Dependencies
 	Transform mRealignForcePos;
 	PlayerScript pScript;
@@ -12,14 +12,18 @@ public class PlayerMove : MonoBehaviour {
 	private float mMinJumpPower = 0;
 
 	// User control force
-	private float mUserForce = 1250;
+	private float mUserForce = 900;
 
-	// Use this for initialization
-	void Start () {
-		RegisterButtons ();
+	void Start() {
+		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
 		pScript = gameObject.GetComponent<PlayerScript> ();
 		mRealignForcePos = transform.FindChild ("UpPoint");
+	}
 
+	// Use this for initialization
+	public override void GameStart () {
+		RegisterKeys ();
+		RegisterButtons ();
 		// Variable initialization.
 		mMinJumpPower = SingletonObject.Get.getInputManager().MinJumpPower;
 	}
@@ -31,19 +35,19 @@ public class PlayerMove : MonoBehaviour {
 
 	void RegisterKeys() {
 		InputManager iManager = SingletonObject.Get.getInputManager ();
-		PlayerConfig player = iManager.mPlayers [pScript.PlayerNumber];
-		iManager.DeRegisterAllKeyCodes();
+		PlayerConfig player = iManager.mPlayers [pScript.PlayerNumber - 1];
 		// Determines whether keys are registered for Key up, key down, or key held.
 		iManager.RegisterKeyCode(player.Jump, true, false, false);
 		iManager.RegisterKeyCode(player.Left, false, false, true);
 		iManager.RegisterKeyCode(player.Right, false, false, true);
+		if (CONTROLS.DBG) { iManager.dbg_PrintEnabledKeys();}
 	}
 
 	void DeRegisterButtons() {
-		InputManager iManager = SingletonObject.Get.getInputManager ();
-		iManager.DeRegisterAllKeyCodes ();
-		iManager.DeregisterOnKeyHeld (OnKeyHeld);
-		iManager.DeregisterOnKeyDown (OnKeyDown);
+		// InputManager iManager = SingletonObject.Get.getInputManager ();
+		// iManager.DeRegisterAllKeyCodes ();
+		// iManager.DeregisterOnKeyHeld (OnKeyHeld);
+		// iManager.DeregisterOnKeyDown (OnKeyDown);
 	}
 
 	void OnDestroy() {
@@ -51,11 +55,11 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	private void OnKeyDown(KeyCode key) {
-		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeydown: Pressed"); }
+		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeydown: Pressed " + key.ToString()); }
 		if (pScript.IsGrounded == false)
 			return;
 		// Maybe cache in player
-		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber];
+		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Jump) {
 			Jump();
 			return;
@@ -64,8 +68,7 @@ public class PlayerMove : MonoBehaviour {
 
 
 	private void OnKeyHeld(KeyCode key) {
-		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyheld: Pressed"); }
-		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber];
+		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Right) {
 			AddForceInDirection(Vector3.right);
 			return;
@@ -77,7 +80,7 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	private void AddForceInDirection(Vector3 direction) {
-		rigidbody.AddForceAtPosition(mUserForce * direction, mRealignForcePos.position);
+		rigidbody.AddForceAtPosition(Vector3.Dot(Vector3.up, transform.up) * mUserForce * direction, mRealignForcePos.position);
 	}
 
 	private void Jump() {

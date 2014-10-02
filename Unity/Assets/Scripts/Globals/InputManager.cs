@@ -34,10 +34,21 @@ public class InputManager : Singleton{
 	private short mCanRightClickUp = 0;
 	private short mCanMiddleClickUp = 0;
 	private HashSet<KeyManager> mEnabledKeys = new HashSet<KeyManager>();
+		public void dbg_PrintEnabledKeys() {
+			if (CONTROLS.DBG) {
+			Debug.Log ("Keys Allowed: " + mEnabledKeys.ToString());
+			}
+		}
 	#endregion
 
 	#region Number of Players
-	public PlayerConfig[] mPlayers;
+	public PlayerConfig[] mPlayers = new PlayerConfig[4] 
+	{
+		new PlayerConfig(KeyCode.Alpha2, KeyCode.Alpha1, KeyCode.Alpha3),
+		new PlayerConfig(KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.RightArrow),
+		new PlayerConfig(KeyCode.I, KeyCode.J, KeyCode.L),
+		new PlayerConfig(KeyCode.X, KeyCode.Z, KeyCode.C)
+	};
 	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
 
@@ -48,14 +59,10 @@ public class InputManager : Singleton{
 
 
 	void Start() {
-		mPlayers = new PlayerConfig[4] 
-		{
-			new PlayerConfig(KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3),
-			new PlayerConfig(KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.RightArrow),
-			new PlayerConfig(KeyCode.I, KeyCode.J, KeyCode.L),
-			new PlayerConfig(KeyCode.Z, KeyCode.X, KeyCode.C)
-		};
 		Debug.Log ("Players instantiated");
+
+		// HACK
+		SingletonObject.Get.getGameState ().GameStartEntry ();
 	}
 
 	// Remove Functions if not needed.
@@ -90,7 +97,7 @@ public class InputManager : Singleton{
 		if (OnKeyHeld != null) {
 			foreach (KeyManager key in mEnabledKeys) {
 				if (key.held && Input.GetKey(key.key)) {
-					OnKeyDown(key.key);
+					OnKeyHeld(key.key);
 				}
 			}
 		}

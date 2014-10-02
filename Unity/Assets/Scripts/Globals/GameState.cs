@@ -24,10 +24,11 @@ public class GameState : Singleton {
 
 	public int mNumberOfPlayers = 0;
 
+	private LinkedList<GameplayObject> startScripts = new LinkedList<GameplayObject> ();
+
 
 #region MonoBehaviour functions
 	void Start(){
-		// This will ALWAYS start in the main menu.
 
 	}
 
@@ -37,6 +38,18 @@ public class GameState : Singleton {
 
 	void Transition() {
 
+	}
+
+
+	// Start functions
+	public void GameStartEntry() {
+		foreach (GameplayObject g in startScripts) {
+			g.GameStart();
+		}
+	}
+
+	public void RegisterScriptAsGameplayObject(GameplayObject go) {
+		startScripts.AddLast (go);
 	}
 #endregion
 

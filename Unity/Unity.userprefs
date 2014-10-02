@@ -1,13 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Globals\GameState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Globals\InputManager.cs">
     <Files>
+      <File FileName="Assets\Scripts\Gameplay\PlayerScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Gameplay\PlayerConfig.cs" Line="21" Column="1" />
-      <File FileName="Assets\Scripts\Globals\InputManager.cs" Line="67" Column="3" />
-      <File FileName="Assets\Scripts\Gameplay\PlayerMove.cs" Line="18" Column="11" />
-      <File FileName="Assets\Scripts\Globals\GameState.cs" Line="45" Column="26" />
-      <File FileName="Assets\Scripts\Test\CONTROLS.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Globals\SingletonObject.cs" Line="77" Column="19" />
+      <File FileName="Assets\Scripts\Gameplay\PlayerMove.cs" Line="12" Column="33" />
+      <File FileName="Assets\Scripts\Globals\InputManager.cs" Line="56" Column="36" />
+      <File FileName="Assets\Scripts\Gameplay\PlayerRealign.cs" Line="25" Column="84" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

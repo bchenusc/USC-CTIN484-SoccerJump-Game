@@ -53,7 +53,7 @@ public class InputManager : Singleton{
 	#endregion
 
 	#region SoccerJump Variables
-	private float mMinJumpPower = 600;
+	private float mMinJumpPower = 1000;
 	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
 	#endregion
 

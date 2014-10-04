@@ -34,11 +34,6 @@ public class InputManager : Singleton{
 	private short mCanRightClickUp = 0;
 	private short mCanMiddleClickUp = 0;
 	private HashSet<KeyManager> mEnabledKeys = new HashSet<KeyManager>();
-		public void dbg_PrintEnabledKeys() {
-			if (CONTROLS.DBG) {
-			Debug.Log ("Keys Allowed: " + mEnabledKeys.ToString());
-			}
-		}
 	#endregion
 
 	#region Number of Players
@@ -53,7 +48,7 @@ public class InputManager : Singleton{
 	#endregion
 
 	#region SoccerJump Variables
-	private float mMinJumpPower = 1000;
+	private float mMinJumpPower = 900;
 	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
 	#endregion
 

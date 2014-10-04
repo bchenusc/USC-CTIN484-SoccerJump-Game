@@ -9,10 +9,10 @@ public class PlayerMove : GameplayObject {
 	PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 0;
+	private float mMinJumpPower = 700;
 
 	// User control force
-	private float mUserForce = 900;
+	private float mUserForce = 1000;
 
 	void Start() {
 		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
@@ -24,8 +24,6 @@ public class PlayerMove : GameplayObject {
 	public override void GameStart () {
 		RegisterKeys ();
 		RegisterButtons ();
-		// Variable initialization.
-		mMinJumpPower = SingletonObject.Get.getInputManager().MinJumpPower;
 	}
 
 	void RegisterButtons() {
@@ -40,14 +38,17 @@ public class PlayerMove : GameplayObject {
 		iManager.RegisterKeyCode(player.Jump, true, false, false);
 		iManager.RegisterKeyCode(player.Left, false, false, true);
 		iManager.RegisterKeyCode(player.Right, false, false, true);
-		if (CONTROLS.DBG) { iManager.dbg_PrintEnabledKeys();}
 	}
 
 	void DeRegisterButtons() {
-		// InputManager iManager = SingletonObject.Get.getInputManager ();
-		// iManager.DeRegisterAllKeyCodes ();
-		// iManager.DeregisterOnKeyHeld (OnKeyHeld);
-		// iManager.DeregisterOnKeyDown (OnKeyDown);
+		SingletonObject instance = SingletonObject.Get;
+		if (instance == null) {
+			return;
+		}
+		 InputManager iManager = instance.getInputManager ();
+		 iManager.DeRegisterAllKeyCodes ();
+		 iManager.DeregisterOnKeyHeld (OnKeyHeld);
+		 iManager.DeregisterOnKeyDown (OnKeyDown);
 	}
 
 	void OnDestroy() {
@@ -55,9 +56,10 @@ public class PlayerMove : GameplayObject {
 	}
 
 	private void OnKeyDown(KeyCode key) {
-		if (CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeydown: Pressed " + key.ToString()); }
 		if (pScript.IsGrounded == false)
 			return;
+
+		if (CONTROLS.DBGKEY && CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyDown: " + key.ToString()); }
 		// Maybe cache in player
 		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Jump) {
@@ -80,7 +82,8 @@ public class PlayerMove : GameplayObject {
 	}
 
 	private void AddForceInDirection(Vector3 direction) {
-		rigidbody.AddForceAtPosition(Vector3.Dot(Vector3.up, transform.up) * mUserForce * direction, mRealignForcePos.position);
+		//rigidbody.AddForceAtPosition(Vector3.Dot(Vector3.up, transform.up) * mUserForce * direction, mRealignForcePos.position);
+		rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
 	}
 
 	private void Jump() {

@@ -55,6 +55,7 @@ public class PlayerMove : GameplayObject {
 		DeRegisterButtons ();
 	}
 
+
 	private void OnKeyDown(KeyCode key) {
 		if (pScript.IsGrounded == false)
 			return;

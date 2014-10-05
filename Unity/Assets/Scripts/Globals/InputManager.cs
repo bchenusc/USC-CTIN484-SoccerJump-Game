@@ -47,11 +47,6 @@ public class InputManager : Singleton{
 	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
 
-	#region SoccerJump Variables
-	private float mMinJumpPower = 900;
-	public float MinJumpPower { get { return mMinJumpPower; } set { mMinJumpPower = value;}}
-	#endregion
-
 
 	void Start() {
 		Debug.Log ("Players instantiated");

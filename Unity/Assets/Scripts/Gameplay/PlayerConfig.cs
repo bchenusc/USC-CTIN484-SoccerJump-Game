@@ -12,9 +12,14 @@ public class PlayerConfig {
 	public KeyCode Left { get { return mLeft; } set { mLeft = value; }}
 	public KeyCode Right { get { return mRight; } set { mRight = value; }}
 
-	public PlayerConfig (KeyCode left, KeyCode jump, KeyCode right) {
+	public PlayerConfig (int playerNum, KeyCode left, KeyCode jump, KeyCode right) {
+		mPlayerNumber = playerNum;
 		Jump = jump;
 		Left = left;
 		Right = right;
+	}
+
+	public string ToString() {
+		return "Player " + mPlayerNumber + " Controls:" + mLeft.ToString () + " "  + mJump.ToString () + " " + mRight.ToString ();
 	}
 }

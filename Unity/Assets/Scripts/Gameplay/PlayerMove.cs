@@ -6,7 +6,7 @@ using System.Collections;
 public class PlayerMove : GameplayObject {
 	// Dependencies
 	Transform mRealignForcePos;
-	PlayerScript pScript;
+	public PlayerScript pScript;
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 700;
@@ -15,8 +15,8 @@ public class PlayerMove : GameplayObject {
 	private float mUserForce = 1000;
 
 	void Start() {
-		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
 		pScript = gameObject.GetComponent<PlayerScript> ();
+		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
 		mRealignForcePos = transform.FindChild ("UpPoint");
 	}
 
@@ -35,6 +35,7 @@ public class PlayerMove : GameplayObject {
 		InputManager iManager = SingletonObject.Get.getInputManager ();
 		PlayerConfig player = iManager.mPlayers [pScript.PlayerNumber - 1];
 		// Determines whether keys are registered for Key up, key down, or key held.
+		Debug.Log (player.PlayerNumber + " is registered");
 		iManager.RegisterKeyCode(player.Jump, true, false, false);
 		iManager.RegisterKeyCode(player.Left, false, false, true);
 		iManager.RegisterKeyCode(player.Right, false, false, true);
@@ -71,6 +72,7 @@ public class PlayerMove : GameplayObject {
 
 
 	private void OnKeyHeld(KeyCode key) {
+		if (CONTROLS.DBGKEY && CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyHeld: " + key.ToString()); }
 		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Right) {
 			AddForceInDirection(Vector3.right);

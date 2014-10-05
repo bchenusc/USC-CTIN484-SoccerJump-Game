@@ -39,10 +39,10 @@ public class InputManager : Singleton{
 	#region Number of Players
 	public PlayerConfig[] mPlayers = new PlayerConfig[4] 
 	{
-		new PlayerConfig(KeyCode.Comma, KeyCode.Period, KeyCode.Slash),
-		new PlayerConfig(KeyCode.C, KeyCode.V, KeyCode.B),
-		new PlayerConfig(KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
-		new PlayerConfig(KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
+		new PlayerConfig(1, KeyCode.Comma, KeyCode.Period, KeyCode.Slash),
+		new PlayerConfig(2, KeyCode.C, KeyCode.V, KeyCode.B),
+		new PlayerConfig(3, KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
+		new PlayerConfig(4, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
 	};
 	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
@@ -52,7 +52,11 @@ public class InputManager : Singleton{
 		Debug.Log ("Players instantiated");
 
 		// HACK
-		SingletonObject.Get.getGameState ().GameStartEntry ();
+		GameObject.FindGameObjectWithTag ("DebuggingTools").transform.GetComponent<GUIText>().text = 
+			mPlayers[0].ToString() + "\n" +
+			mPlayers[1].ToString() + "\n" +
+			mPlayers[2].ToString() + "\n" +
+			mPlayers[3].ToString() + "\n";
 	}
 
 	// Remove Functions if not needed.
@@ -201,6 +205,7 @@ public class InputManager : Singleton{
 		public bool held;
 		
 		public KeyManager(KeyCode k, bool buttonDown, bool buttonHeld, bool buttonUp) {
+			if (CONTROLS.DBG && CONTROLS.DBGKEY) Debug.Log ("Key " + k.ToString() + " registered." + buttonDown + " " + buttonHeld + " " + buttonUp);
 			key = k;
 			down = buttonDown;
 			held = buttonHeld;

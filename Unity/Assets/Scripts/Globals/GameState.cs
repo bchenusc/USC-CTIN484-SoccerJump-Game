@@ -50,6 +50,10 @@ public class GameState : Singleton {
 
 	public void RegisterScriptAsGameplayObject(GameplayObject go) {
 		startScripts.AddLast (go);
+
+		if (startScripts.Count == 4) {
+			GameStartEntry();
+		}
 	}
 #endregion
 

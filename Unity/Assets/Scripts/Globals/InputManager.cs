@@ -39,10 +39,10 @@ public class InputManager : Singleton{
 	#region Number of Players
 	public PlayerConfig[] mPlayers = new PlayerConfig[4] 
 	{
-		new PlayerConfig(KeyCode.Alpha2, KeyCode.Alpha1, KeyCode.Alpha3),
-		new PlayerConfig(KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.RightArrow),
-		new PlayerConfig(KeyCode.I, KeyCode.J, KeyCode.L),
-		new PlayerConfig(KeyCode.X, KeyCode.Z, KeyCode.C)
+		new PlayerConfig(KeyCode.Comma, KeyCode.Period, KeyCode.Slash),
+		new PlayerConfig(KeyCode.C, KeyCode.V, KeyCode.B),
+		new PlayerConfig(KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
+		new PlayerConfig(KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
 	};
 	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion

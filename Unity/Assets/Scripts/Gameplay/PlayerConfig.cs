@@ -12,7 +12,7 @@ public class PlayerConfig {
 	public KeyCode Left { get { return mLeft; } set { mLeft = value; }}
 	public KeyCode Right { get { return mRight; } set { mRight = value; }}
 
-	public PlayerConfig (KeyCode jump, KeyCode left, KeyCode right) {
+	public PlayerConfig (KeyCode left, KeyCode jump, KeyCode right) {
 		Jump = jump;
 		Left = left;
 		Right = right;

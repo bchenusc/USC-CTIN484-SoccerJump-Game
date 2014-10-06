@@ -8,6 +8,7 @@ public class CloudSpawn : Singleton {
 	public Transform Cloud1;
 	public Transform Cloud2;
 	public Transform Cloud3;
+	public AudioClip clip;
 
 	void Start() {
 		timer = false;
@@ -42,7 +43,7 @@ public class CloudSpawn : Singleton {
 		case 6:  cloud = Instantiate(Cloud3, coord, Quaternion.identity) as Transform; break;
 		default: cloud = Instantiate(Cloud1, coord, Quaternion.identity) as Transform; break;
 		}
-		cloud.parent = GameObject.Find ("Sky").transform;
+		cloud.parent = GameObject.Find("Sky").transform;
 		timer = false;
 	}
 	

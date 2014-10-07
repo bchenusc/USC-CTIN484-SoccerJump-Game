@@ -131,6 +131,16 @@ public class Timer : Singleton  {
 			return false;
 		}
 	}
+
+	public void RemoveAll() {
+		foreach (KeyValuePair<string, TimerInstance> kvp in sl_pending){
+			kvp.Value.b_removeMe = true;
+		}
+		foreach (KeyValuePair<string, TimerInstance> kvp in sl_active){
+			kvp.Value.b_removeMe = true;
+		}
+		
+	}
 	
 	#region Inherited functions
 	protected override void DestroyIfMoreThanOneOnObject(){

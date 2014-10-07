@@ -6,6 +6,8 @@ public class PlayerScript : MonoBehaviour {
 	private int mPlayerNumber = 1;
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 
+	private Vector3 spawnPosition;
+
 	private event Action CollisionExit;
 
 	// Player movement gameplay
@@ -13,6 +15,7 @@ public class PlayerScript : MonoBehaviour {
 	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
 
 	void Start() {
+		spawnPosition = transform.position;
 		// HACK -- Make sure this doesn't break anything in the future.
 		if (transform.name.Contains("1")) {
 			mPlayerNumber = 1;
@@ -28,8 +31,8 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionEnter(Collision c) {
 		if (c.gameObject.CompareTag("Deadzone")) {
 			rigidbody.isKinematic = true;
-			transform.position = Vector3.up * 10;
-			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 5.0f, false);
+			transform.position = spawnPosition + Vector3.up * 15;
+			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 3.0f, false);
 		}
 	}
 

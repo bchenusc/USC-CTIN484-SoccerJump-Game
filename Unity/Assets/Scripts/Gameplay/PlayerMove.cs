@@ -9,7 +9,7 @@ public class PlayerMove : GameplayObject {
 	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 700;
+	private float mMinJumpPower = 800;
 
 	// User control force
 	private float mUserForce = 900;

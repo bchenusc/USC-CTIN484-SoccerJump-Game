@@ -10,14 +10,17 @@ public class ScoreLabel : GameplayObject {
 		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
 		if (transform.name.Contains("Blue")) {
 			myTeam = 1;
+			transform.GetComponent<TextMesh>().text = SingletonObject.Get.getGameState().Team1BlueScore.ToString();
+			
 		}
 		else if (transform.name.Contains ("Red")) {
 			myTeam = 2;
+			transform.GetComponent<TextMesh>().text = SingletonObject.Get.getGameState().Team2RedScore.ToString();
+			
 		}
 	}
 
 	public override void GameStart() {
-		Debug.Log ("GameStart");
 		RegisterUpdateText ();
 	}
 
@@ -36,7 +39,6 @@ public class ScoreLabel : GameplayObject {
 	}
 	
 	void UpdateText() {
-		Debug.Log ("updating");
 		if (myTeam == 1){
 			transform.GetComponent<TextMesh>().text = SingletonObject.Get.getGameState().Team1BlueScore.ToString();
 		} else if (myTeam == 2) {

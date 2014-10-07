@@ -25,6 +25,18 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter(Collision c) {
+		if (c.gameObject.CompareTag("Deadzone")) {
+			rigidbody.isKinematic = true;
+			transform.position = Vector3.up * 10;
+			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 5.0f, false);
+		}
+	}
+
+	void RespawnMe() {
+		rigidbody.isKinematic = false;
+	}
+
 	void OnCollisionStay(Collision c) {
 		if (!c.gameObject.CompareTag("Ball"))
 		mIsGrounded = true;

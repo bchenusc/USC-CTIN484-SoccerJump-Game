@@ -43,11 +43,8 @@ public class GameState : Singleton {
 		OnLevelWasLoaded (0);
 	}
 
-	void Update(){
-
-	}
-
 	void OnLevelWasLoaded(int i) {
+		Time.timeScale = 1;
 		mTimeTillStart = 5;
 		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<GUIText> ();
 		mStartTimerGUI.text = "5";
@@ -64,6 +61,27 @@ public class GameState : Singleton {
 		Application.LoadLevel (level);
 	}
 
+	public void RoundOver(int teamWhoWon) {
+		Time.timeScale = 0.3f;
+
+		if (teamWhoWon == 1) {
+			// Blue won.
+			mStartTimerGUI.text = "BLUE SCORED!";
+		} else if (teamWhoWon == 2) {
+			mStartTimerGUI.text = "RED SCORED!";
+		}
+		mStartTimerGUI.enabled = true;
+
+		SingletonObject.Get.getTimer ().Add ("newRound", ResetLevelWithoutResettingScore, 1.0f, false);
+
+	}
+
+	private void ResetLevelWithoutResettingScore() {
+		startScripts.Clear ();
+
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
 
 	// Start functions
 	public void GameStartEntry() {
@@ -78,13 +96,11 @@ public class GameState : Singleton {
 
 	void GuiStartCounter() {
 		mTimeTillStart --;
-		if (mTimeTillStart == 0) {
-			mStartTimerGUI.enabled = false;
-		}
 		mStartTimerGUI.text = mTimeTillStart.ToString ();
 	}
 
 	void LoadGameMode() {
+		mStartTimerGUI.enabled = false;
 		GameStartEntry();
 	}
 #endregion
@@ -103,10 +119,11 @@ public class GameState : Singleton {
 			UpdateScoreLabels ();
 		}
 
+		RoundOver (team);
+
 	}
 
 	public void RegisterScoreLabel(Action a) {
-		Debug.Log ("registered");
 		UpdateScoreLabels += a;
 	}
 	public void DeRegisterScoreLabel(Action a) {

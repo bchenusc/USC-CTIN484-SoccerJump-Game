@@ -38,6 +38,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void RespawnMe() {
 		rigidbody.isKinematic = false;
+		rigidbody.AddForce(Vector3.down);
 	}
 
 	void OnCollisionStay(Collision c) {

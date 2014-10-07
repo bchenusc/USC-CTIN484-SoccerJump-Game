@@ -5,14 +5,14 @@ using System.Collections;
 
 public class PlayerMove : GameplayObject {
 	// Dependencies
-	Transform mRealignForcePos;
-	public PlayerScript pScript;
+	private Transform mRealignForcePos;
+	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 700;
 
 	// User control force
-	private float mUserForce = 1000;
+	private float mUserForce = 900;
 
 	void Start() {
 		pScript = gameObject.GetComponent<PlayerScript> ();
@@ -34,8 +34,6 @@ public class PlayerMove : GameplayObject {
 	void RegisterKeys() {
 		InputManager iManager = SingletonObject.Get.getInputManager ();
 		PlayerConfig player = iManager.mPlayers [pScript.PlayerNumber - 1];
-		// Determines whether keys are registered for Key up, key down, or key held.
-		Debug.Log (player.PlayerNumber + " is registered");
 		iManager.RegisterKeyCode(player.Jump, true, false, false);
 		iManager.RegisterKeyCode(player.Left, false, false, true);
 		iManager.RegisterKeyCode(player.Right, false, false, true);

@@ -40,17 +40,18 @@ public class InputManager : Singleton{
 	public PlayerConfig[] mPlayers = new PlayerConfig[4] 
 	{
 		new PlayerConfig(1, KeyCode.Comma, KeyCode.Period, KeyCode.Slash),
-		new PlayerConfig(2, KeyCode.C, KeyCode.V, KeyCode.B),
+		new PlayerConfig(2, KeyCode.Z, KeyCode.X, KeyCode.C),
 		new PlayerConfig(3, KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
 		new PlayerConfig(4, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
 	};
 	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
 
-
 	void Start() {
-		Debug.Log ("Players instantiated");
+		OnLevelWasLoaded (0);
+	}
 
+	void OnLevelWasLoaded(int i) {
 		// HACK
 		GameObject.FindGameObjectWithTag ("DebuggingTools").transform.GetComponent<GUIText>().text = 
 			mPlayers[0].ToString() + "\n" +
@@ -63,7 +64,7 @@ public class InputManager : Singleton{
 	void Update () {
 		//HACK - REMOVE
 		if (Input.GetKeyDown(KeyCode.R)) {
-			Application.LoadLevel(0);
+			SingletonObject.Get.getGameState().ResetLevel(0);
 			return;
 		}
 		if (OnMouseClick != null) {

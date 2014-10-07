@@ -13,6 +13,6 @@ public class Cloud : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.Translate (Vector3.right * mSpeed);
-		if (transform.position.x > 50) Destroy (this.gameObject);
+		if (transform.position.x > 100) Destroy (this.gameObject);
 	}
 }

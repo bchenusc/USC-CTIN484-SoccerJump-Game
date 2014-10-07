@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour {
 	private event Action CollisionExit;
 
 	// Player movement gameplay
-	public bool mIsGrounded = true;
+	private bool mIsGrounded = false;
 	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
 
 	void Start() {

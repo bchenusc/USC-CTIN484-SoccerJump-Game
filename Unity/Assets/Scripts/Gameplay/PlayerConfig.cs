@@ -20,6 +20,6 @@ public class PlayerConfig {
 	}
 
 	public string ToString() {
-		return "Player " + mPlayerNumber + " Controls:" + mLeft.ToString () + " "  + mJump.ToString () + " " + mRight.ToString ();
+		return "Player " + mPlayerNumber + " Controls: [" + mLeft.ToString () + "] ["  + mJump.ToString () + "] [" + mRight.ToString () + "]";
 	}
 }

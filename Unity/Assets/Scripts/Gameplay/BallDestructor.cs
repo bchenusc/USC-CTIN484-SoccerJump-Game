@@ -5,7 +5,7 @@ public class BallDestructor : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.CompareTag("Deadzone")) {
-			Destroy (gameObject);
+			transform.position = Vector3.up * 20;
 		}
 	}
 }

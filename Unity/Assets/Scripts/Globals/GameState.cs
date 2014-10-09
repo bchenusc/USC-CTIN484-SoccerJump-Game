@@ -45,11 +45,11 @@ public class GameState : Singleton {
 
 	void OnLevelWasLoaded(int i) {
 		Time.timeScale = 1;
-		mTimeTillStart = 5;
+		mTimeTillStart = 3;
 		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<GUIText> ();
-		mStartTimerGUI.text = "5";
+		mStartTimerGUI.text = "3";
 		
-		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, 5, LoadGameMode);
+		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, mTimeTillStart, LoadGameMode);
 	}
 
 	// Call this function to reset the game mode.

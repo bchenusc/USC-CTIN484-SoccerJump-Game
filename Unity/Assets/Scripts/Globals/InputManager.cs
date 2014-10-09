@@ -53,11 +53,11 @@ public class InputManager : Singleton{
 
 	void OnLevelWasLoaded(int i) {
 		// HACK
-		GameObject.FindGameObjectWithTag ("DebuggingTools").transform.GetComponent<GUIText>().text = 
-			mPlayers[0].ToString() + "\n" +
-			mPlayers[1].ToString() + "\n" +
-			mPlayers[2].ToString() + "\n" +
-			mPlayers[3].ToString() + "\n";
+//		GameObject.FindGameObjectWithTag ("DebuggingTools").transform.GetComponent<GUIText>().text = 
+//			mPlayers[0].ToString() + "\n" +
+//			mPlayers[1].ToString() + "\n" +
+//			mPlayers[2].ToString() + "\n" +
+//			mPlayers[3].ToString() + "\n";
 	}
 
 	// Remove Functions if not needed.

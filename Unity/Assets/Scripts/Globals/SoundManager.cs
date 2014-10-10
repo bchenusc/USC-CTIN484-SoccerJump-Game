@@ -6,8 +6,12 @@ using System.Collections.Generic;
 public class SoundManager : Singleton {
 
 	static List<GameObject> loopSounds = new List<GameObject>();
-
-	public static void play(AudioClip clip, bool loop = false, float vol = 1)
+	
+	public void play(AudioClip clip)
+	{
+		play(clip, false);
+	}
+	public void play(AudioClip clip, bool loop, float vol = 1)
 	{
 		GameObject sound = new GameObject();
 		sound.transform.position = GameObject.Find("Main Camera").transform.position;
@@ -23,7 +27,7 @@ public class SoundManager : Singleton {
 		else loopSounds.Add(sound);
 	}
 	
-	public static void stop(AudioClip clip) {
+	public void stop(AudioClip clip) {
 		foreach(GameObject sound in loopSounds) {
 			if (sound.GetComponent<AudioSource>().clip.Equals(clip))
 			{

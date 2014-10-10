@@ -14,6 +14,7 @@ public class SingletonObject : MonoBehaviour {
 	private Timer m_Timer;
 	private GameState m_GameState;
 	private InputManager m_InputManager;
+	private SoundManager m_SoundManager;
 //	private GuiManager m_GuiManager;
 	
 	void Awake () {
@@ -28,6 +29,9 @@ public class SingletonObject : MonoBehaviour {
 	}
 	public InputManager getInputManager() {
 		return m_InputManager;
+	}
+	public SoundManager getSoundManager() {
+		return m_SoundManager;
 	}
 //	public GuiManager getGuiManager(){
 //		return m_GuiManager;
@@ -54,6 +58,7 @@ public class SingletonObject : MonoBehaviour {
 		m_Timer = _instance.GetComponent<Timer>();
 		m_GameState = _instance.GetComponent<GameState>();
 		m_InputManager = _instance.GetComponent<InputManager>();
+		m_SoundManager = _instance.GetComponent<SoundManager>();
 //		m_GuiManager = _instance.GetComponent<GuiManager>();
 	}
 	

@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class ScoreColliders : MonoBehaviour {
-
+	
+	// Score sound
+	public AudioClip clip;
+	
 	int myTeam = 0;
 
 	void Start() {
@@ -17,6 +20,7 @@ public class ScoreColliders : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c) {
 		if (c.transform.CompareTag("Ball")) {
+			SingletonObject.Get.getSoundManager().play(clip);
 			if (myTeam == 1) {
 				// Add a score to the red team if you score against the blue team.
 				SingletonObject.Get.getGameState().AddScore(2);

@@ -4,6 +4,10 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody))]
 
 public class PlayerMove : GameplayObject {
+
+	// Jump sound
+	public AudioClip clip;
+
 	// Dependencies
 	private Transform mRealignForcePos;
 	private PlayerScript pScript;
@@ -91,6 +95,7 @@ public class PlayerMove : GameplayObject {
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 		// Jump in the direction of the up vector.
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
+		SingletonObject.Get.getSoundManager().play(clip);
 		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 

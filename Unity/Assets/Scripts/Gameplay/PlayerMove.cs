@@ -89,7 +89,11 @@ public class PlayerMove : GameplayObject {
 	}
 
 	private void AddForceInDirection(Vector3 direction) {
-		rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
+		if (!pScript.IsGrounded) {
+			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
+		} else {
+			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.Dot(Vector3.up, transform.up) * Vector3.forward * 1000);
+		}
 	}
 
 	private void AddMomentumForce(Vector3 direction) {

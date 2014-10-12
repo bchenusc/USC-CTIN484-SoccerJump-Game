@@ -6,22 +6,40 @@ using System.Collections.Generic;
 public class SoundManager : Singleton {
 
 	private List<GameObject> loopSounds = new List<GameObject>();
-	GameObject mCamera;
-
-	void Start() {
-		// Find the main camera
-		mCamera = GameObject.Find ("Main Camera");
-
+	
+	// possibly a temp hack
+	public AudioClip goSound;
+	public AudioClip countSound;
+	public AudioClip scoreSound;
+	public AudioClip jumpSound;
+	public void play(string clip)
+	{
+		playSound(findClip(clip), false);
+	}
+	public void play(string clip, bool loop, float vol = 1)
+	{
+		playSound(findClip(clip), false, vol);
+	}
+	AudioClip findClip(string clip)
+	{
+		switch (clip)
+		{
+			case "count": return countSound;
+			case "go": return goSound;
+			case "score": return scoreSound;
+			case "jump": return jumpSound;
+		}
+		return null;
 	}
 	
-	public void play(AudioClip clip)
+	public void playSound(AudioClip clip)
 	{
-		play(clip, false);
+		playSound(clip, false);
 	}
-	public void play(AudioClip clip, bool loop, float vol = 1)
+	public void playSound(AudioClip clip, bool loop, float vol = 1)
 	{
 		GameObject sound = new GameObject();
-		sound.transform.position = mCamera.transform.position;
+		sound.transform.position = GameObject.Find("Main Camera").transform.position;
 		sound.AddComponent<AudioSource>();
 		AudioSource audioSource = sound.GetComponent<AudioSource>();
 		audioSource.playOnAwake = false;

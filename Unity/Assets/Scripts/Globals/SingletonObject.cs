@@ -30,9 +30,9 @@ public class SingletonObject : MonoBehaviour {
 	public InputManager getInputManager() {
 		return m_InputManager;
 	}
-//	public SoundManager getSoundManager() {
-//		return m_SoundManager;
-//	}
+	public SoundManager getSoundManager() {
+		return m_SoundManager;
+	}
 //	public GuiManager getGuiManager(){
 //		return m_GuiManager;
 //	}

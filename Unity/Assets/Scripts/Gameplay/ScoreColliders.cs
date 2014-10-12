@@ -20,7 +20,7 @@ public class ScoreColliders : MonoBehaviour {
 
 	void OnTriggerEnter(Collider c) {
 		if (c.transform.CompareTag("Ball")) {
-//			SingletonObject.Get.getSoundManager().play(clip);
+			SingletonObject.Get.getSoundManager().play("score");
 			if (myTeam == 1) {
 				// Add a score to the red team if you score against the blue team.
 				SingletonObject.Get.getGameState().AddScore(2);

@@ -23,9 +23,6 @@ public class GameState : Singleton {
 	public GAMESTATE mGameState = GAMESTATE.MAINMENU;
 
 	public int mNumberOfPlayers = 0;
-	
-	// public AudioClip countClip;
-	// public AudioClip goClip;
 
 	private int mTeam1BlueScore = 0;
 	private int mTeam2RedScore = 0;
@@ -51,7 +48,7 @@ public class GameState : Singleton {
 		mTimeTillStart = 3;
 		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
 		mStartTimerGUI.text = "3";
-//		SingletonObject.Get.getSoundManager().play(countClip);
+		SingletonObject.Get.getSoundManager().play("count");
 		
 		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, mTimeTillStart, LoadGameMode);
 	}
@@ -102,7 +99,7 @@ public class GameState : Singleton {
 	void GuiStartCounter() {
 		mTimeTillStart --;
 		mStartTimerGUI.text = mTimeTillStart.ToString ();
-//		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play(countClip);
+		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play("count");
 	}
 
 	void LoadGameMode() {
@@ -113,7 +110,7 @@ public class GameState : Singleton {
 		ball.rigidbody.isKinematic = false;
 		ball.rigidbody.AddForce (Vector3.down);
 
-//		SingletonObject.Get.getSoundManager().play(goClip);
+		SingletonObject.Get.getSoundManager().play("go");
 		GameStartEntry();
 	}
 #endregion

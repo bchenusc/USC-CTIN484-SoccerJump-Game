@@ -44,7 +44,6 @@ public class InputManager : Singleton{
 		new PlayerConfig(3, KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
 		new PlayerConfig(4, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
 	};
-	public int mNumberOfPlayers = 0; // Set me externally.
 	#endregion
 
 	void Start() {

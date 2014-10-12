@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
-	public int mPlayerNumber = 1;
+	private int mPlayerNumber = 1;
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 
 	private Vector3 spawnPosition;

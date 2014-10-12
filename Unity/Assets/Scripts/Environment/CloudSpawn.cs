@@ -37,7 +37,7 @@ public class CloudSpawn : MonoBehaviour {
 	void createCloud() {
 		int type = Random.Range (1, 7);
 		float x, y;
-		x = -50f; // fixed horizontal placement off left side of screen (for spawned clouds)
+		x = -100f; // fixed horizontal placement off left side of screen (for spawned clouds)
 		if (type > 3) y = Random.Range (-4000, -2500) / 100f; // random vertical placement in lower area
 		else y = (float) Random.Range (-250, 1500) / 100f; // random vertical placement in upper area
 		Vector3 coord = new Vector3(x, y, 30);

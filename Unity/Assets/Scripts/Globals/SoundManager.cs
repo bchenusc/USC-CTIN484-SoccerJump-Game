@@ -5,7 +5,14 @@ using System.Collections.Generic;
 
 public class SoundManager : Singleton {
 
-	static List<GameObject> loopSounds = new List<GameObject>();
+	private List<GameObject> loopSounds = new List<GameObject>();
+	GameObject mCamera;
+
+	void Start() {
+		// Find the main camera
+		mCamera = GameObject.Find ("Main Camera");
+
+	}
 	
 	public void play(AudioClip clip)
 	{
@@ -14,7 +21,7 @@ public class SoundManager : Singleton {
 	public void play(AudioClip clip, bool loop, float vol = 1)
 	{
 		GameObject sound = new GameObject();
-		sound.transform.position = GameObject.Find("Main Camera").transform.position;
+		sound.transform.position = mCamera.transform.position;
 		sound.AddComponent<AudioSource>();
 		AudioSource audioSource = sound.GetComponent<AudioSource>();
 		audioSource.playOnAwake = false;

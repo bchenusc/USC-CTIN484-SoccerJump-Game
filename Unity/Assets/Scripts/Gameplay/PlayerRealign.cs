@@ -7,7 +7,7 @@ using System.Collections;
 
 public class PlayerRealign : MonoBehaviour
 {
-	float mRealignForce = 1000; // up force
+	float mRealignForce = 1300; // up force
 	Transform mRealignForcePos;
 	float mODot = 0;
 	Transform mCenterOfMass;
@@ -28,8 +28,9 @@ public class PlayerRealign : MonoBehaviour
 	
 	void FixedUpdate(){
 		if (pScript.IsGrounded) {
-			rigidbody.AddForceAtPosition(-Mathf.Sign(transform.up.x) * OppositeDot(Vector3.up, transform.up) * mRealignForce * Vector3.right, mRealignForcePos.position);
+			//rigidbody.AddForceAtPosition(-Mathf.Sign(transform.up.x) * OppositeDot(Vector3.up, transform.up) * mRealignForce * Vector3.right, mRealignForcePos.position);
 			//rigidbody.AddTorque(-Mathf.Sign(transform.up.x) * OppositeDot(Vector3.up, transform.up) * mRealignForce * Vector3.forward, ForceMode.VelocityChange);
+			rigidbody.AddTorque (Mathf.Sign(transform.up.x) * OppositeDot(Vector3.up, transform.up) * Vector3.forward * mRealignForce);
 		}
 	}
 	

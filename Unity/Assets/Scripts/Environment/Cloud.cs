@@ -7,12 +7,12 @@ public class Cloud : MonoBehaviour {
 	public float Speed { get { return mSpeed; } set { mSpeed = value; } }
 
 	void Start () {
-		mSpeed = Random.Range (2, 10) / 100f;
+		mSpeed = Random.Range (2, 10)/3;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (Vector3.right * mSpeed);
+		transform.Translate (Vector3.right * mSpeed * Time.deltaTime);
 		if (transform.position.x > 100) Destroy (this.gameObject);
 	}
 }

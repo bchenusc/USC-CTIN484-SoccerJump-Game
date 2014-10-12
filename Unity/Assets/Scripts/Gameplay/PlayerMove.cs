@@ -13,7 +13,7 @@ public class PlayerMove : GameplayObject {
 	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 800;
+	private float mMinJumpPower = 850;
 
 	// User control force
 	private float mUserForce = 900;
@@ -78,24 +78,31 @@ public class PlayerMove : GameplayObject {
 		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Right) {
 			AddForceInDirection(Vector3.right);
+			AddMomentumForce(Vector3.right);
 			return;
 		}
 		if (key == pConfig.Left) {
 			AddForceInDirection(Vector3.left);
+			AddMomentumForce(Vector3.left);
 			return;
 		}
 	}
 
 	private void AddForceInDirection(Vector3 direction) {
-		//rigidbody.AddForceAtPosition(Vector3.Dot(Vector3.up, transform.up) * mUserForce * direction, mRealignForcePos.position);
 		rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
+	}
+
+	private void AddMomentumForce(Vector3 direction) {
+		if (!pScript.IsGrounded) {
+		rigidbody.AddForceAtPosition (direction * 200, transform.position);
+		}
 	}
 
 	private void Jump() {
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 		// Jump in the direction of the up vector.
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
-		SingletonObject.Get.getSoundManager().play(clip);
+//		SingletonObject.Get.getSoundManager().play(clip);
 		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 

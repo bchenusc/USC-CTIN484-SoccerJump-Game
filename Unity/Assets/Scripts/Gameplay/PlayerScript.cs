@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
-	private int mPlayerNumber = 1;
+	public int mPlayerNumber = 1;
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 
 	private Vector3 spawnPosition;
@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour {
 	private bool mIsGrounded = false;
 	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
 
-	void Start() {
+	void Awake() {
 		spawnPosition = transform.position;
 		// HACK -- Make sure this doesn't break anything in the future.
 		if (transform.name.Contains("1")) {

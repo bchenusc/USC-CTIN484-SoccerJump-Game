@@ -24,15 +24,15 @@ public class GameState : Singleton {
 
 	public int mNumberOfPlayers = 0;
 	
-	public AudioClip countClip;
-	public AudioClip goClip;
+	// public AudioClip countClip;
+	// public AudioClip goClip;
 
 	private int mTeam1BlueScore = 0;
 	private int mTeam2RedScore = 0;
 	private Action UpdateScoreLabels;
 
 	// HACK USE PUSH SYSTEM
-	private GUIText mStartTimerGUI;
+	private TextMesh mStartTimerGUI;
 	private int mTimeTillStart = 5;
 
 	public int Team1BlueScore { get { return mTeam1BlueScore; } }
@@ -49,9 +49,9 @@ public class GameState : Singleton {
 	void OnLevelWasLoaded(int i) {
 		Time.timeScale = 1;
 		mTimeTillStart = 3;
-		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<GUIText> ();
+		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
 		mStartTimerGUI.text = "3";
-		SingletonObject.Get.getSoundManager().play(countClip);
+//		SingletonObject.Get.getSoundManager().play(countClip);
 		
 		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, mTimeTillStart, LoadGameMode);
 	}
@@ -66,15 +66,16 @@ public class GameState : Singleton {
 	}
 
 	public void RoundOver(int teamWhoWon) {
-		Time.timeScale = 0.3f;
-
+		Time.timeScale = 0.35f;
+		mStartTimerGUI.characterSize = 10;
 		if (teamWhoWon == 1) {
 			// Blue won.
 			mStartTimerGUI.text = "BLUE SCORED!";
 		} else if (teamWhoWon == 2) {
+			// Red Won
 			mStartTimerGUI.text = "RED SCORED!";
 		}
-		mStartTimerGUI.enabled = true;
+		mStartTimerGUI.transform.gameObject.SetActive (true);
 
 		SingletonObject.Get.getTimer ().Add ("newRound", ResetLevelWithoutResettingScore, 1.0f, false);
 
@@ -101,12 +102,18 @@ public class GameState : Singleton {
 	void GuiStartCounter() {
 		mTimeTillStart --;
 		mStartTimerGUI.text = mTimeTillStart.ToString ();
-		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play(countClip);
+//		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play(countClip);
 	}
 
 	void LoadGameMode() {
-		mStartTimerGUI.enabled = false;
-		SingletonObject.Get.getSoundManager().play(goClip);
+		mStartTimerGUI.transform.gameObject.SetActive (false);
+		
+		// Enable the ball
+		GameObject ball = GameObject.Find ("Ball");
+		ball.rigidbody.isKinematic = false;
+		ball.rigidbody.AddForce (Vector3.down);
+
+//		SingletonObject.Get.getSoundManager().play(goClip);
 		GameStartEntry();
 	}
 #endregion
@@ -121,7 +128,6 @@ public class GameState : Singleton {
 
 		// Update the score boards
 		if (UpdateScoreLabels != null) {
-			Debug.Log ("Updating");
 			UpdateScoreLabels ();
 		}
 

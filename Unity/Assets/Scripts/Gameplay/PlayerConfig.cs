@@ -19,6 +19,20 @@ public class PlayerConfig {
 		Right = right;
 	}
 
+	public string PrintKey(int key) {
+		// 0 - left
+		// 1 - jump
+		// 2 - right
+		switch (key) {
+		case 0: return KeyUtils.ConvertToReadable(Left);
+		case 1: return KeyUtils.ConvertToReadable(Jump);
+		case 2: return KeyUtils.ConvertToReadable(Right);
+		default: return "";
+		}
+	}
+
+
+
 	public string ToString() {
 		return "Player " + mPlayerNumber + " Controls: [" + mLeft.ToString () + "] ["  + mJump.ToString () + "] [" + mRight.ToString () + "]";
 	}

@@ -17,29 +17,29 @@ public class SoundManager : Singleton {
 	GameObject sound9;
 	GameObject sound10;
 	
-	void Start()
+	void populateList()
 	{
 		sounds.Clear();
 		sound1 = GameObject.Find("SoundSource1");
-		sounds.Add (sound1);
+		sounds.Add(sound1);
 		sound2 = GameObject.Find("SoundSource2");
-		sounds.Add (sound2);
+		sounds.Add(sound2);
 		sound3 = GameObject.Find("SoundSource3");
-		sounds.Add (sound3);
+		sounds.Add(sound3);
 		sound4 = GameObject.Find("SoundSource4");
-		sounds.Add (sound4);
+		sounds.Add(sound4);
 		sound5 = GameObject.Find("SoundSource5");
-		sounds.Add (sound5);
+		sounds.Add(sound5);
 		sound6 = GameObject.Find("SoundSource6");
-		sounds.Add (sound6);
+		sounds.Add(sound6);
 		sound7 = GameObject.Find("SoundSource7");
-		sounds.Add (sound7);
+		sounds.Add(sound7);
 		sound8 = GameObject.Find("SoundSource8");
-		sounds.Add (sound8);
+		sounds.Add(sound8);
 		sound9 = GameObject.Find("SoundSource9");
-		sounds.Add (sound9);
+		sounds.Add(sound9);
 		sound10 = GameObject.Find("SoundSource10");
-		sounds.Add (sound10);
+		sounds.Add(sound10);
 	}
 	
 	// temp hack - start
@@ -49,11 +49,11 @@ public class SoundManager : Singleton {
 	public AudioClip jumpSound;
 	public void play(string clip)
 	{
-		playSound(findClip(clip), false);
+		play(clip, false, 1f);
 	}
-	public void play(string clip, bool loop, float vol = 1)
+	public void play(string clip, bool loop, float vol = 1f)
 	{
-		playSound(findClip(clip), false, vol);
+		addSound(findClip(clip), false, vol);
 	}
 	AudioClip findClip(string clip)
 	{
@@ -68,41 +68,63 @@ public class SoundManager : Singleton {
 	}
 	// temp hack - end
 	
-	public void playSound(AudioClip clip)
+	public void addSound(AudioClip clip)
 	{
-		playSound(clip, false);
+		addSound(clip, false);
 	}
-	public void playSound(AudioClip clip, bool loop, float vol = 1)
+	public void addSound(AudioClip clip, bool loop, float vol = 1f)
 	{
-		if (sounds.Count == 0 || sounds[1] == null) Start ();
-		foreach(GameObject sound in sounds)
+		if (sounds.Count == 0 || sounds[0] == null) populateList();
+		int minIndex = 0; int minCount = sound1.GetComponent<AudioSourceManager>().getCount();
+		for (int i = 1; i < sounds.Count; i++)
 		{
-			if (sound.GetComponent<AudioSource>() == null)
+			if (minCount == 0) break;
+			else
 			{
-				sound.AddComponent<AudioSource>();
-				AudioSource audioSource = sound.GetComponent<AudioSource>();
-				audioSource.playOnAwake = false;
-				audioSource.rolloffMode = AudioRolloffMode.Linear; // not sure what this does
-				audioSource.clip = clip;
-				audioSource.loop = loop;
-				audioSource.volume = vol;
-				audioSource.Play();
-				if (! loop) Destroy(audioSource, clip.length);
-				break;
+				GameObject sound = sounds[i];
+				int iCount = sound.GetComponent<AudioSourceManager>().getCount();
+				if (sound.GetComponent<AudioSourceManager>().isLooping()) iCount += 1000;
+				if (minCount > iCount)
+				{
+					minIndex = i;
+					minCount = iCount;
+				}
 			}
 		}
+		sounds[minIndex].GetComponent<AudioSourceManager>().add(clip, loop, vol);
+	}
+	public void addSounds(List<AudioClip> clips, float vol = 1f)
+	{
+		if (sounds.Count == 0 || sounds[0] == null) populateList();
+		int minIndex = 0; int minCount = sound1.GetComponent<AudioSourceManager>().getCount();
+		for (int i = 1; i < sounds.Count; i++)
+		{
+			if (minCount == 0) break;
+			else
+			{
+				GameObject sound = sounds[i];
+				int iCount = sound.GetComponent<AudioSourceManager>().getCount();
+				if (sound.GetComponent<AudioSourceManager>().isLooping()) iCount += 1000;
+				if (minCount > iCount)
+				{
+					minIndex = i;
+					minCount = iCount;
+				}
+			}
+		}
+		foreach (AudioClip clip in clips) sounds[minIndex].GetComponent<AudioSourceManager>().add(clip, false, vol);
 	}
 	
-	public void stop(AudioClip clip) {
-		foreach(GameObject sound in sounds) {
-			AudioSource source = sound.GetComponent<AudioSource>();
-			if (source.clip.Equals(clip))
-			{
-				Destroy (source);
-				break; // if we only have one looping clip of a kind at any given point
-			}
-		}
-	}
+//	public void stop(AudioClip clip) {
+//		foreach(GameObject sound in sounds) {
+//			AudioSource source = sound.GetComponent<AudioSource>();
+//			if (source.clip.Equals(clip))
+//			{
+//				Destroy (source);
+//				break; // if we only have one looping clip of a kind at any given point
+//			}
+//		}
+//	}
 	
 	#region Inherited functions
 	protected override void DestroyIfMoreThanOneOnObject(){

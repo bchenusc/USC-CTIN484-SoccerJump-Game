@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: a879c6e2eb5f849478f892da0abe6e17
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - goSound: {fileID: 8300000, guid: 7cefbe021eda76f4687103635d9ab9c1, type: 3}
+  - countSound: {fileID: 8300000, guid: d1ad43608dd86534f888c0f2328ca852, type: 3}
+  - scoreSound: {fileID: 8300000, guid: 255caa36624721745ae185c6d1d7766d, type: 3}
+  - jumpSound: {fileID: 8300000, guid: ad7cadf3eb058164b9ca615cad299931, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

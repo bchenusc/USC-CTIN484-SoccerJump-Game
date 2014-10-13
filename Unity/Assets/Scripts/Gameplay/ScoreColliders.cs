@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ScoreColliders : MonoBehaviour {
 	
-	// Score sound
-	public AudioClip clip;
-	
 	int myTeam = 0;
 
 	void Start() {

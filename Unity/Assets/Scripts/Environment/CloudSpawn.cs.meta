@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: f4bed7911139c9a45802a751713271df
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Cloud1: {fileID: 400000, guid: c7a7907dacd89da4cbde3c108634b2eb, type: 2}
+  - Cloud2: {fileID: 400008, guid: b90f09ae818f577478a66235211a01b7, type: 2}
+  - Cloud3: {fileID: 400000, guid: 56826e52ce7b60f4b81054b1bee62b2f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

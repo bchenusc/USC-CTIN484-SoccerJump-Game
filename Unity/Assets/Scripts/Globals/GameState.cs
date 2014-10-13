@@ -27,6 +27,8 @@ public class GameState : Singleton {
 	private int mTeam1BlueScore = 0;
 	private int mTeam2RedScore = 0;
 	private Action UpdateScoreLabels;
+	
+	private int mLastTouch = 0;  // 1 = blue, 2 = red
 
 	// HACK USE PUSH SYSTEM
 	private TextMesh mStartTimerGUI;
@@ -34,6 +36,7 @@ public class GameState : Singleton {
 
 	public int Team1BlueScore { get { return mTeam1BlueScore; } }
 	public int Team2RedScore { get { return mTeam2RedScore; } }
+	public int LastTouch { get { return mLastTouch; } }
 
 	private LinkedList<GameplayObject> startScripts = new LinkedList<GameplayObject> ();
 
@@ -58,6 +61,7 @@ public class GameState : Singleton {
 		startScripts.Clear ();
 		mTeam1BlueScore = 0;
 		mTeam2RedScore = 0;
+		mLastTouch = 0;
 
 		Application.LoadLevel (level);
 	}
@@ -67,10 +71,12 @@ public class GameState : Singleton {
 		mStartTimerGUI.characterSize = 10;
 		if (teamWhoWon == 1) {
 			// Blue won.
-			mStartTimerGUI.text = "BLUE SCORED!";
+			if (mLastTouch == 1) mStartTimerGUI.text = "BLUE SCORED!";
+			else mStartTimerGUI.text = "RED OWN GOAL!";
 		} else if (teamWhoWon == 2) {
 			// Red Won
-			mStartTimerGUI.text = "RED SCORED!";
+			if (mLastTouch == 2) mStartTimerGUI.text = "RED SCORED!";
+			else mStartTimerGUI.text = "BLUE OWN GOAL!";
 		}
 		mStartTimerGUI.transform.gameObject.SetActive (true);
 
@@ -129,7 +135,10 @@ public class GameState : Singleton {
 		}
 
 		RoundOver (team);
-
+	}
+	
+	public void UpdateLastTouch(int team) {
+		mLastTouch = team;
 	}
 
 	public void RegisterScoreLabel(Action a) {

@@ -51,6 +51,12 @@ public class PlayerScript : MonoBehaviour {
 		if (CollisionExit != null) {
 			CollisionExit();
 		}
+		if (c.gameObject.CompareTag("Ball")) {
+			int team;
+			if (gameObject.name.Equals("Player1")) team = 2;
+			else team = 1;
+			SingletonObject.Get.getGameState().UpdateLastTouch(team);
+		}
 	}
 
 	public void RegisterCollisionExit(Action func) {

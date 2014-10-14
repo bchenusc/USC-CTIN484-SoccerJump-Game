@@ -53,7 +53,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 		if (c.gameObject.CompareTag("Ball")) {
 			int team;
-			if (gameObject.name.Equals("Player1")) team = 2;
+			if (mPlayerNumber == 1 || mPlayerNumber == 3) team = 2;
 			else team = 1;
 			SingletonObject.Get.getGameState().UpdateLastTouch(team);
 		}

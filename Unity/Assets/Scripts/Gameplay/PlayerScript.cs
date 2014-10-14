@@ -33,6 +33,14 @@ public class PlayerScript : MonoBehaviour {
 			rigidbody.isKinematic = true;
 			transform.position = spawnPosition + Vector3.up * 15;
 			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 3.0f, false);
+			return;
+		}
+		if (c.gameObject.CompareTag("Ball")) {
+			if (mPlayerNumber == 1 || mPlayerNumber == 3) {
+				c.transform.renderer.material.color = Color.red;
+			} else {
+				c.transform.renderer.material.color = Color.blue;
+			}
 		}
 	}
 
@@ -52,10 +60,13 @@ public class PlayerScript : MonoBehaviour {
 			CollisionExit();
 		}
 		if (c.gameObject.CompareTag("Ball")) {
-			int team;
-			if (mPlayerNumber == 1 || mPlayerNumber == 3) team = 2;
-			else team = 1;
-			SingletonObject.Get.getGameState().UpdateLastTouch(team);
+			if (mPlayerNumber == 1 || mPlayerNumber == 3) {
+				SingletonObject.Get.getGameState().UpdateLastTouch(2);
+			}
+			else {
+				SingletonObject.Get.getGameState().UpdateLastTouch(1);
+			}
+
 		}
 	}
 

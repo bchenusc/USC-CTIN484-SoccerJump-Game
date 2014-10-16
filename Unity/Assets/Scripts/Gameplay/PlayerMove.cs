@@ -10,6 +10,7 @@ public class PlayerMove : GameplayObject {
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 800;
+	private float mTiltPower = 3000;
 
 	void Start() {
 		pScript = gameObject.GetComponent<PlayerScript> ();
@@ -83,7 +84,7 @@ public class PlayerMove : GameplayObject {
 			return;
 //		if (!pScript.IsGrounded) {
 			// Allows aerial flipping
-			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
+			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * mTiltPower);
 //		}
 //		} else {
 //			// Does not allow rolling on ground.
@@ -97,7 +98,7 @@ public class PlayerMove : GameplayObject {
 		if (this == null) return;
 		// Momentum force only added in the air to make flipping feel a little more polished.
 		if (!pScript.IsGrounded) {
-			rigidbody.AddForceAtPosition (direction * 200, transform.position);
+			rigidbody.AddForceAtPosition (direction * 200 * Time.deltaTime, transform.position);
 		}
 	}
 

@@ -71,17 +71,29 @@ public class GameState : Singleton {
 		mStartTimerGUI.characterSize = 10;
 		if (teamWhoWon == 1) {
 			// Blue won.
-			if (mLastTouch == 1) mStartTimerGUI.text = "BLUE SCORED!";
-			else mStartTimerGUI.text = "RED OWN GOAL!";
+			if (mLastTouch == 1) {
+				mStartTimerGUI.text = "BLUE SCORED!";
+				SingletonObject.Get.getSoundManager().play("score");
+			}
+			else {
+				mStartTimerGUI.text = "RED OWN GOAL!";
+				SingletonObject.Get.getSoundManager().play("boo");
+			}
 		} else if (teamWhoWon == 2) {
 			// Red Won
-			if (mLastTouch == 2) mStartTimerGUI.text = "RED SCORED!";
-			else mStartTimerGUI.text = "BLUE OWN GOAL!";
+			if (mLastTouch == 2) {
+				mStartTimerGUI.text = "RED SCORED!";
+				SingletonObject.Get.getSoundManager().play("score");
+			}
+			else {
+				mStartTimerGUI.text = "BLUE OWN GOAL!";
+				SingletonObject.Get.getSoundManager().play("boo");
+			}
+			
 		}
 		mStartTimerGUI.transform.gameObject.SetActive (true);
 
 		SingletonObject.Get.getTimer ().Add ("newRound", ResetLevelWithoutResettingScore, 1.0f, false);
-
 	}
 
 	private void ResetLevelWithoutResettingScore() {

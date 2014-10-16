@@ -108,7 +108,7 @@ public class PlayerMove : GameplayObject {
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 		// Jump in the direction of the up vector.
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
-		SingletonObject.Get.getSoundManager().play("jump");
+		SingletonObject.Get.getSoundManager().play("jump", false, 0.25f);
 		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 

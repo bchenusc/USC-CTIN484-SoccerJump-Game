@@ -13,10 +13,6 @@ public class AudioSourceManager : MonoBehaviour {
 
 	Queue<SoundClip> playQueue;
 	
-	public void add(AudioClip clip)
-	{
-		add(clip, false, 1f);
-	}
 	public void add(AudioClip clip, bool loop, float vol = 1f)
 	{
 		if (playQueue == null) playQueue = new Queue<SoundClip>();

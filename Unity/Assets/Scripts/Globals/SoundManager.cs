@@ -47,11 +47,16 @@ public class SoundManager : Singleton {
 	public AudioClip countSound;
 	public AudioClip scoreSound;
 	public AudioClip jumpSound;
+	public AudioClip booSound;
 	public void play(string clip)
 	{
 		play(clip, false, 1f);
 	}
-	public void play(string clip, bool loop, float vol = 1f)
+	public void play(string clip, bool loop)
+	{
+		play(clip, loop, 1f);
+	}
+	public void play(string clip, bool loop, float vol)
 	{
 		addSound(findClip(clip), false, vol);
 	}
@@ -63,15 +68,12 @@ public class SoundManager : Singleton {
 			case "go": return goSound;
 			case "score": return scoreSound;
 			case "jump": return jumpSound;
+			case "boo": return booSound;
 		}
 		return null;
 	}
 	// temp hack - end
 	
-	public void addSound(AudioClip clip)
-	{
-		addSound(clip, false);
-	}
 	public void addSound(AudioClip clip, bool loop, float vol = 1f)
 	{
 		if (sounds.Count == 0 || sounds[0] == null) populateList();

@@ -6,19 +6,14 @@ using System.Collections;
 public class PlayerMove : GameplayObject {
 
 	// Dependencies
-	private Transform mRealignForcePos;
 	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 850;
-
-	// User control force
-	private float mUserForce = 1000;
+	private float mMinJumpPower = 800;
 
 	void Start() {
 		pScript = gameObject.GetComponent<PlayerScript> ();
 		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
-		mRealignForcePos = transform.FindChild ("UpPoint");
 	}
 
 	// Use this for initialization
@@ -60,7 +55,6 @@ public class PlayerMove : GameplayObject {
 		if (pScript.IsGrounded == false)
 			return;
 
-		if (CONTROLS.DBGKEY && CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyDown: " + key.ToString()); }
 		// Maybe cache in player
 		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Jump) {
@@ -71,7 +65,6 @@ public class PlayerMove : GameplayObject {
 
 
 	private void OnKeyHeld(KeyCode key) {
-		if (CONTROLS.DBGKEY && CONTROLS.DBG) { Debug.Log ("PlayerMove - OnKeyHeld: " + key.ToString()); }
 		PlayerConfig pConfig = SingletonObject.Get.getInputManager().mPlayers[pScript.PlayerNumber-1];
 		if (key == pConfig.Right) {
 			AddForceInDirection(Vector3.right);
@@ -86,18 +79,22 @@ public class PlayerMove : GameplayObject {
 	}
 
 	private void AddForceInDirection(Vector3 direction) {
-		if (!pScript.IsGrounded) {
+		if (this == null)
+			return;
+//		if (!pScript.IsGrounded) {
 			// Allows aerial flipping
 			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * 1000);
-		} else {
-			// Does not allow rolling on ground.
-			if (transform.up.y > 0) {
-				rigidbody.AddRelativeTorque (Mathf.Sign(direction.x) * Vector3.Dot(Vector3.up, transform.up) * Vector3.forward * 1000);
-			}
-		}
+//		}
+//		} else {
+//			// Does not allow rolling on ground.
+//			if (transform.up.y > 0) {
+//				rigidbody.AddRelativeTorque (Mathf.Sign(direction.x) * Vector3.Dot(Vector3.up, transform.up) * Vector3.forward * 1000);
+//			}
+//		}
 	}
 
 	private void AddMomentumForce(Vector3 direction) {
+		if (this == null) return;
 		// Momentum force only added in the air to make flipping feel a little more polished.
 		if (!pScript.IsGrounded) {
 			rigidbody.AddForceAtPosition (direction * 200, transform.position);
@@ -105,6 +102,7 @@ public class PlayerMove : GameplayObject {
 	}
 
 	private void Jump() {
+		if (this == null) return;
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 		// Jump in the direction of the up vector.
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);

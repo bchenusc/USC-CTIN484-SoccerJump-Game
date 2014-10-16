@@ -19,9 +19,9 @@ public class ScoreColliders : MonoBehaviour {
 		if (c.transform.CompareTag("Ball")) {
 			if (myTeam == 1) {
 				// Add a score to the red team if you score against the blue team.
-				SingletonObject.Get.getGameState().AddScore(2);
+				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.AddScore(2);
 			} else {
-				SingletonObject.Get.getGameState().AddScore(1);
+				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.AddScore(1);
 			}
 		}
 	}

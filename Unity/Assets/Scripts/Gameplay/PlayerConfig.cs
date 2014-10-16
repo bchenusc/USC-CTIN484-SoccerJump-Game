@@ -33,7 +33,7 @@ public class PlayerConfig {
 
 
 
-	public string ToString() {
+	public override string ToString() {
 		return "Player " + mPlayerNumber + " Controls: [" + mLeft.ToString () + "] ["  + mJump.ToString () + "] [" + mRight.ToString () + "]";
 	}
 }

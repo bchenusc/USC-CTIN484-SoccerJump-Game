@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour {
 
 	private int mPlayerNumber = 1;
+	public int mPlayableID = 0;
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 
 	private Vector3 spawnPosition;
@@ -45,6 +46,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void RespawnMe() {
+		if (this == null) return;
 		rigidbody.isKinematic = false;
 		rigidbody.AddForce(Vector3.down);
 	}
@@ -61,10 +63,10 @@ public class PlayerScript : MonoBehaviour {
 		}
 		if (c.gameObject.CompareTag("Ball")) {
 			if (mPlayerNumber == 1 || mPlayerNumber == 3) {
-				SingletonObject.Get.getGameState().UpdateLastTouch(2);
+				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.UpdateLastTouch(2);
 			}
 			else {
-				SingletonObject.Get.getGameState().UpdateLastTouch(1);
+				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.UpdateLastTouch(1);
 			}
 
 		}

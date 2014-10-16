@@ -34,7 +34,9 @@ public class ShowControls : MonoBehaviour {
 			
 		}
 
-		SingletonObject.Get.getTimer ().Add (gameObject.GetInstanceID () + "hcontrols", HideControls, 3.0f, false);
+		if (SingletonObject.Get.getGameState().mGameState == GameState.GAMESTATE.SOCCER_GAME) {
+			SingletonObject.Get.getTimer ().Add (gameObject.GetInstanceID () + "hcontrols", HideControls, 3.0f, false);
+		}
 	}
 
 	private void HideControls() {

@@ -46,24 +46,11 @@ public class InputManager : Singleton{
 	};
 	#endregion
 
-	void Start() {
-		OnLevelWasLoaded (0);
-	}
-
-	void OnLevelWasLoaded(int i) {
-		// HACK
-//		GameObject.FindGameObjectWithTag ("DebuggingTools").transform.GetComponent<GUIText>().text = 
-//			mPlayers[0].ToString() + "\n" +
-//			mPlayers[1].ToString() + "\n" +
-//			mPlayers[2].ToString() + "\n" +
-//			mPlayers[3].ToString() + "\n";
-	}
-
 	// Remove Functions if not needed.
 	void Update () {
 		//HACK - REMOVE
 		if (Input.GetKeyDown(KeyCode.R)) {
-			SingletonObject.Get.getGameState().ResetLevel(0);
+			SingletonObject.Get.getGameState().ResetLevel();
 			return;
 		}
 		if (OnMouseClick != null) {
@@ -105,6 +92,16 @@ public class InputManager : Singleton{
 	}
 
 	#region Register Functions
+	public void ClearAllActions() {
+		OnMouseClick = null;
+		OnMouseUp = null;
+		OnMouseHeld = null;
+		OnKeyDown = null;
+		OnKeyUp = null;
+		OnKeyHeld = null;
+		DeRegisterAllKeyCodes ();
+	}
+
 	public void RegisterKeyCode(KeyCode key, bool onDown, bool onUp, bool onHeld) {
 		mEnabledKeys.Add(new KeyManager(key, onDown, onHeld, onUp));
 	}
@@ -205,7 +202,6 @@ public class InputManager : Singleton{
 		public bool held;
 		
 		public KeyManager(KeyCode k, bool buttonDown, bool buttonHeld, bool buttonUp) {
-			if (CONTROLS.DBG && CONTROLS.DBGKEY) Debug.Log ("Key " + k.ToString() + " registered." + buttonDown + " " + buttonHeld + " " + buttonUp);
 			key = k;
 			down = buttonDown;
 			held = buttonHeld;

@@ -5,6 +5,7 @@ public class CloudSpawn : MonoBehaviour {
 	public Transform Cloud1;
 	public Transform Cloud2;
 	public Transform Cloud3;
+	public bool limitY;
 
 	void Start() {
 		for (int i = 0; i < 5; i++) {
@@ -16,8 +17,11 @@ public class CloudSpawn : MonoBehaviour {
 		int type = Random.Range (1, 7);
 		float x, y;
 		x = Random.Range (-5000, 3000) / 100f; // random horizontal placement
-		if (type > 3) y = Random.Range (-4000, -2500) / 100f; // random vertical placement in lower area
-		else y = (float) Random.Range (-250, 1500) / 100f; // random vertical placement in upper area
+		if (limitY) {
+			if (type > 3) y = Random.Range (-4000, -2500) / 100f; // random vertical placement in lower area
+			else y = (float) Random.Range (-250, 1500) / 100f; // random vertical placement in upper area
+		}
+		else y = Random.Range (-3000, 1500) / 100f; // random vertical placement
 		Vector3 coord = new Vector3(x, y, 30);
 		Transform cloud;
 		switch (type) {

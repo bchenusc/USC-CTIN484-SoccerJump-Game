@@ -83,9 +83,10 @@ public class GameState : Singleton {
 	}
 
 	public void ResetLevelWithoutResettingScore() {
-		startScripts.Clear ();
-		SingletonObject.Get.getTimer ().RemoveAll ();
-		Application.LoadLevel (Application.loadedLevel);
+		//startScripts.Clear ();
+		//SingletonObject.Get.getTimer ().RemoveAll ();
+		Time.timeScale = 1.0f;
+		//Application.LoadLevel (Application.loadedLevel);
 	}
 
 	public void LoadGameMode() {

@@ -94,7 +94,7 @@ public class SoccerMode : GameMode {
 	}
 
 	public void RoundOver(int teamWhoWon) {
-		Time.timeScale = 0.35f;
+		Time.timeScale = 0.3f;
 		mStartTimerGUI.characterSize = 10;
 		if (teamWhoWon == 1) {
 			// Blue won.
@@ -135,7 +135,7 @@ public class SoccerMode : GameMode {
 			mStartTimerGUI.text = "RED WINS!!!!!";
 		} else {
 			// Blue wins
-			mStartTimerGUI.text = "RED WINS!!!!!";
+			mStartTimerGUI.text = "BLUE WINS!!!!!";
 		}
 		SingletonObject.Get.getTimer ().Add ("newRound", ReturnToMainMenu, 0.7f, false);
 		
@@ -148,6 +148,7 @@ public class SoccerMode : GameMode {
 
 	// Message sender to reset the game without resetting the score.
 	public void ResetLevelWithoutResetScore() {
+		mStartTimerGUI.transform.gameObject.SetActive(false);
 		SingletonObject.Get.getGameState ().ResetLevelWithoutResettingScore ();
 	}
 	

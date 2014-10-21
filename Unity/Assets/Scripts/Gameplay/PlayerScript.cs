@@ -36,13 +36,6 @@ public class PlayerScript : MonoBehaviour {
 			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 3.0f, false);
 			return;
 		}
-		if (c.gameObject.CompareTag("Ball")) {
-			if (mPlayerNumber == 1 || mPlayerNumber == 3) {
-				c.transform.renderer.material.color = Color.red;
-			} else {
-				c.transform.renderer.material.color = Color.blue;
-			}
-		}
 	}
 
 	void RespawnMe() {

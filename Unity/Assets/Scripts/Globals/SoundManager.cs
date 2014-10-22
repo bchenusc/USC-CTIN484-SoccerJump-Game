@@ -16,6 +16,7 @@ public class SoundManager : Singleton {
 	GameObject sound8;
 	GameObject sound9;
 	GameObject sound10;
+	GameObject music;
 	
 	void populateList()
 	{
@@ -40,6 +41,9 @@ public class SoundManager : Singleton {
 		sounds.Add(sound9);
 		sound10 = GameObject.Find("SoundSource10");
 		sounds.Add(sound10);
+		music = GameObject.Find("MusicSource");
+		sounds.Add(music);
+//		playMusic ("music", 0.25f);
 	}
 	
 	// temp hack - start
@@ -48,6 +52,11 @@ public class SoundManager : Singleton {
 	public AudioClip scoreSound;
 	public AudioClip jumpSound;
 	public AudioClip booSound;
+//	public AudioClip testMusic;
+	public void playMusic(string clip, float vol = 1)
+	{
+		addMusic(findClip(clip), vol);
+	}
 	public void play(string clip)
 	{
 		play(clip, false, 1f);
@@ -56,7 +65,7 @@ public class SoundManager : Singleton {
 	{
 		play(clip, loop, 1f);
 	}
-	public void play(string clip, bool loop, float vol)
+	public void play(string clip, bool loop, float vol = 1)
 	{
 		addSound(findClip(clip), false, vol);
 	}
@@ -69,10 +78,17 @@ public class SoundManager : Singleton {
 			case "score": return scoreSound;
 			case "jump": return jumpSound;
 			case "boo": return booSound;
+//			case "music": return testMusic;
 		}
 		return null;
 	}
 	// temp hack - end
+	
+	public void addMusic(AudioClip clip, float vol = 1f)
+	{
+		if (sounds.Count == 0 || sounds[0] == null) populateList();
+		music.GetComponent<AudioSourceManager>().playMusic(clip, vol);
+	}
 	
 	public void addSound(AudioClip clip, bool loop, float vol = 1f)
 	{

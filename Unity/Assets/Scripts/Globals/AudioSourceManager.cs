@@ -27,6 +27,24 @@ public class AudioSourceManager : MonoBehaviour {
 		}
 	}
 	
+	public void playMusic(AudioClip clip, float vol = 1f)
+	{
+		AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+		if (audioSource == null)
+		{
+			gameObject.AddComponent<AudioSource>();
+			audioSource = gameObject.GetComponent<AudioSource>();
+		}
+		else 
+		{
+			audioSource.Stop();
+		}
+	    audioSource.playOnAwake = false;
+	    audioSource.clip = clip;
+	    audioSource.loop = true;
+	    audioSource.volume = vol;
+	    audioSource.Play();
+	}
 	IEnumerator playSound(SoundClip clip)
 	{
 		float time = clip.clip.length;

@@ -64,13 +64,13 @@ public class GameState : Singleton {
 	public void JumpToState(GAMESTATE gs) {
 		mGameState = gs;
 		mMode = ModeFactory (gs);
-		Application.LoadLevel (LevelFactory (gs));
+		ResetLevel (LevelFactory (gs));
 	}
 
-	public void JumpToStateWPlayers(GAMESTATE gs, int controlledAvatars) {
+	public void JumpToStateWPlayers(GAMESTATE gs, int activeObjectSpawner) {
 		mGameState = gs;
 		mMode = ModeFactory (gs);
-		GET_MODE_AS_SOCCER.mControlledAvatars = controlledAvatars;
+		GET_MODE_AS_SOCCER.mObjectSpawnerActive = activeObjectSpawner;
 		Application.LoadLevel (LevelFactory (gs));
 	}
 
@@ -80,6 +80,13 @@ public class GameState : Singleton {
 		startScripts.Clear ();
 		SingletonObject.Get.getTimer ().RemoveAll ();
 		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	public void ResetLevel(int level) {
+		mMode.ResetLevelDNU ();
+		startScripts.Clear ();
+		SingletonObject.Get.getTimer ().RemoveAll ();
+		Application.LoadLevel (level);
 	}
 
 	public void ResetLevelWithoutResettingScore() {

@@ -33,7 +33,7 @@ public class PlayerScript : MonoBehaviour {
 		if (c.gameObject.CompareTag("Deadzone")) {
 			rigidbody.isKinematic = true;
 			transform.position = spawnPosition + Vector3.up * 15;
-			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 3.0f, false);
+			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 2.0f, false);
 			return;
 		}
 	}

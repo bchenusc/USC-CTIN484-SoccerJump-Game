@@ -41,6 +41,8 @@ public class ShowControls : MonoBehaviour {
 
 	private void HideControls() {
 		// TODO Add a fade out animation here in the future.
+		if (this == null)
+						return;
 		transform.parent.gameObject.SetActive (false);
 	}
 }

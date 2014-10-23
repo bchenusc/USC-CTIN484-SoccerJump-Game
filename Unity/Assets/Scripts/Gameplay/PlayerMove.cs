@@ -9,19 +9,37 @@ public class PlayerMove : GameplayObject {
 	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 800;
+	private float mMinJumpPower = 950;
 	private float mTiltPower = 3000;
 
 	void Start() {
+		rigidbody.isKinematic = false;
 		pScript = gameObject.GetComponent<PlayerScript> ();
 		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
-	}
 
-	// Use this for initialization
-	public override void GameStart () {
 		RegisterKeys ();
 		RegisterButtons ();
 	}
+
+	void OnLevelWasLoaded(int i) {
+		if (i == 1) {
+			// Check if the game state is game mode.
+			if (SingletonObject.Get.getGameState().mGameState == GameState.GAMESTATE.SOCCER_GAME) {
+				rigidbody.isKinematic = true;
+			}
+		}
+	}
+
+
+	// Use this for initialization
+	public override void GameStart () {
+		//RegisterKeys ();
+		//RegisterButtons ();
+		if (this == null) return;
+		rigidbody.isKinematic = false;
+		rigidbody.AddForce (Vector3.down * 10);
+	}
+	
 
 	void RegisterButtons() {
 		SingletonObject.Get.getInputManager().RegisterOnKeyHeld (OnKeyHeld);

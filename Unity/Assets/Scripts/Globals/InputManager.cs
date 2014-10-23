@@ -39,8 +39,8 @@ public class InputManager : Singleton{
 	#region Number of Players
 	public PlayerConfig[] mPlayers = new PlayerConfig[4] 
 	{
-		new PlayerConfig(1, KeyCode.Comma, KeyCode.Period, KeyCode.Slash),
-		new PlayerConfig(2, KeyCode.Z, KeyCode.X, KeyCode.C),
+		new PlayerConfig(1, KeyCode.J, KeyCode.I, KeyCode.L),
+		new PlayerConfig(2, KeyCode.A, KeyCode.W, KeyCode.D),
 		new PlayerConfig(3, KeyCode.LeftBracket, KeyCode.RightBracket, KeyCode.Backslash),
 		new PlayerConfig(4, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3)
 	};

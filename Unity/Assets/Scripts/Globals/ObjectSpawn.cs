@@ -6,9 +6,7 @@ public class ObjectSpawn : MonoBehaviour {
 	public Transform Obj;
 
 	void Start() {
-		int num = Random.Range(1, 4);
-		Debug.Log (num);
-		SingletonObject.Get.getTimer ().Add ("objectSpawner", createObject, 4f, false, num);
+		SingletonObject.Get.getTimer ().Add ("objectSpawner", createObject, 10f, true);
 	}
 
 	void createObject() {

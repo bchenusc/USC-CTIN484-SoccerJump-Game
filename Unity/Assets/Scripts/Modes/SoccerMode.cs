@@ -5,7 +5,7 @@ public class SoccerMode : GameMode {
 	private const int MAX_GOALS = 5;
 
 	public int mNumberOfPlayers = 0;
-	public int mControlledAvatars = 2;
+	public int mObjectSpawnerActive = 0; // 0 Active, 1 No Active
 	
 	private int mTeam1BlueScore = 0;
 	private int mTeam2RedScore = 0;
@@ -23,19 +23,32 @@ public class SoccerMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
-		if (mControlledAvatars == 1) {
-			Transform players = GameObject.Find ("Players").transform;
+		if (GameObject.Find ("StartTimer") == null)
+			return;
+		if (SingletonObject.Get.getGameState ().mGameState != GameState.GAMESTATE.SOCCER_GAME)
+			return;
+		// Was used for spawning # of avatars.
+//		if (mControlledAvatars == 1) {
+//			Transform players = GameObject.Find ("Players").transform;
+//
+//			foreach (Transform child in players) {
+//				if (child.GetComponent<PlayerScript>().mPlayableID == 2) {
+//					child.gameObject.SetActive(false);
+//				}
+//			}
+//		}
 
-			foreach (Transform child in players) {
-				if (child.GetComponent<PlayerScript>().mPlayableID == 2) {
-					child.gameObject.SetActive(false);
-				}
-			}
-		}
 
 		Time.timeScale = 1;
 		mTimeTillStart = 3;
-		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
+
+		if (mObjectSpawnerActive == 1) {
+			GameObject.Find ("ObjectSpawner").SetActive(false);
+		} else {
+			GameObject.Find ("ObjectSpawner").SetActive(true);
+		}
+		mStartTimerGUI =GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
+		if (mStartTimerGUI == null) return;
 		mStartTimerGUI.text = "3";
 		SingletonObject.Get.getSoundManager().play("count");
 		

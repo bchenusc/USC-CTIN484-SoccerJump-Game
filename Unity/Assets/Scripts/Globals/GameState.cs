@@ -22,6 +22,9 @@ public class GameState : Singleton {
 	}
 	public GAMESTATE mGameState = GAMESTATE.MAINMENU;
 
+	public GameObject Object_MenuMode;
+	public GameObject Object_SoccerMode;
+
 	private GameMode mMode;
 	public GameMode MODE { get { return mMode; } }
 	public SoccerMode GET_MODE_AS_SOCCER { 
@@ -37,6 +40,8 @@ public class GameState : Singleton {
 
 #region MonoBehaviour functions
 	void Start(){
+		// Background music
+		SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
 		mMode = ModeFactory (mGameState);
 		OnLevelWasLoaded (0);
 	}
@@ -49,11 +54,19 @@ public class GameState : Singleton {
 		}
 	}
 
-	public int LevelFactory(GAMESTATE gs) {
+	// Returns the object to be turned on or off.
+	public void LevelFactory(GAMESTATE gs) {
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Mode")) {
+			Destroy(go);
+		}
 		switch(gs) {
-		case GAMESTATE.MAINMENU: return 0;
-		case GAMESTATE.SOCCER_GAME: return 1;
-		default: return 0;
+		case GAMESTATE.MAINMENU: 
+			Instantiate(Object_MenuMode);
+			break;
+		case GAMESTATE.SOCCER_GAME:
+			Instantiate(Object_SoccerMode);
+			break;
+		default: break;
 		}
 	}
 
@@ -64,14 +77,15 @@ public class GameState : Singleton {
 	public void JumpToState(GAMESTATE gs) {
 		mGameState = gs;
 		mMode = ModeFactory (gs);
-		ResetLevel (LevelFactory (gs));
+		ResetLevel ();
+		LevelFactory(gs);
 	}
 
 	public void JumpToStateWPlayers(GAMESTATE gs, int activeObjectSpawner) {
 		mGameState = gs;
 		mMode = ModeFactory (gs);
 		GET_MODE_AS_SOCCER.mObjectSpawnerActive = activeObjectSpawner;
-		Application.LoadLevel (LevelFactory (gs));
+		LevelFactory (gs);
 	}
 
 	// Call this function to hard reset the game mode.
@@ -79,21 +93,10 @@ public class GameState : Singleton {
 		mMode.ResetLevelDNU ();
 		startScripts.Clear ();
 		SingletonObject.Get.getTimer ().RemoveAll ();
-		Application.LoadLevel (Application.loadedLevel);
-	}
-
-	public void ResetLevel(int level) {
-		mMode.ResetLevelDNU ();
-		startScripts.Clear ();
-		SingletonObject.Get.getTimer ().RemoveAll ();
-		Application.LoadLevel (level);
 	}
 
 	public void ResetLevelWithoutResettingScore() {
-		//startScripts.Clear ();
-		//SingletonObject.Get.getTimer ().RemoveAll ();
 		Time.timeScale = 1.0f;
-		//Application.LoadLevel (Application.loadedLevel);
 	}
 
 	public void LoadGameMode() {

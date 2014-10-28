@@ -15,7 +15,6 @@ public class SingletonObject : MonoBehaviour {
 	private GameState m_GameState;
 	private InputManager m_InputManager;
 	private SoundManager m_SoundManager;
-//	private GuiManager m_GuiManager;
 	
 	void Awake () {
 		InitSingleton(); //Initialize singleton -- DO NOT TOUCH
@@ -33,9 +32,6 @@ public class SingletonObject : MonoBehaviour {
 	public SoundManager getSoundManager() {
 		return m_SoundManager;
 	}
-//	public GuiManager getGuiManager(){
-//		return m_GuiManager;
-//	}
 	
 	
 	#region Singleton Instantiation
@@ -59,7 +55,6 @@ public class SingletonObject : MonoBehaviour {
 		m_GameState = _instance.GetComponent<GameState>();
 		m_InputManager = _instance.GetComponent<InputManager>();
 		m_SoundManager = _instance.GetComponent<SoundManager>();
-//		m_GuiManager = _instance.GetComponent<GuiManager>();
 	}
 	
 	public static SingletonObject Get

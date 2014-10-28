@@ -134,7 +134,7 @@ public class SoccerMode : GameMode {
 		mStartTimerGUI.transform.gameObject.SetActive (true);
 
 		// Can put endless mode here:
-		if (mTeam2RedScore >= MAX_GOALS || mTeam1BlueScore >= MAX_GOALS) {
+		if ((mTeam2RedScore >= MAX_GOALS && mTeam2RedScore > mTeam1BlueScore + 1) || (mTeam1BlueScore >= MAX_GOALS && mTeam1BlueScore > mTeam2RedScore + 1)) {
 				SingletonObject.Get.getTimer ().Add ("acknowledgeWinner", AcknowledgeWinner, 0.7f, false);
 			return;
 		}

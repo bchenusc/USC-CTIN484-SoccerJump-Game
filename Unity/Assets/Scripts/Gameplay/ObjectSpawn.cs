@@ -3,24 +3,24 @@ using System.Collections.Generic;
 
 public class ObjectSpawn : MonoBehaviour {
 
-	public  List<GameObject> SpawnList;
-	private List<GameObject> ObjList;
+	List<GameObject> SpawnList;
+	int objCount = 0;
 
 	void FillList()
 	{
 		SpawnList.Add(Resources.Load("DropPrefabs/DropObject") as GameObject);
-		SpawnList.Add(Resources.Load("DropPrefabs/DropGrassBlock") as GameObject);
+		SpawnList.Add(Resources.Load("DropPrefabs/DropSphere") as GameObject);
+		//SpawnList.Add(Resources.Load("DropPrefabs/DropGrassBlock") as GameObject);
 	}
 
 	void Start() {
 		SpawnList = new List<GameObject>();
-		ObjList = new List<GameObject>();
 		SingletonObject.Get.getTimer ().Add ("objectSpawner", createObject, 10f, true);
 	}
 
 	void createObject() {
 		if (SpawnList.Count == 0) FillList();
-		if (ObjList.Count < 5)
+		if (objCount < 5)
 		{
 			int type = Random.Range(0, SpawnList.Count);
 			float x, y;
@@ -28,16 +28,16 @@ public class ObjectSpawn : MonoBehaviour {
 			y = 15f;
 			Vector3 coord = new Vector3(x, y, 0);
 			GameObject obj = Instantiate(SpawnList[type], coord, Quaternion.identity) as GameObject;
-			ObjList.Add(obj);
-		}
-		else
-		{
-			foreach (GameObject obj in ObjList)
-			{
-				if (obj == null) ObjList.Remove(obj);
-			}
+			obj.AddComponent<ObjDestructor>();
+            obj.GetComponent<ObjDestructor>().setSpawner(this);
+            objCount++;
 		}
 	}
+    
+    public void decreaseCount()
+    {
+        objCount--;
+    }
 }
 
 

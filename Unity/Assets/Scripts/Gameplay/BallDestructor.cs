@@ -7,7 +7,8 @@ public class BallDestructor : MonoBehaviour {
 		if (other.gameObject.CompareTag("Deadzone")) {
 			rigidbody.velocity = Vector3.zero;
 			transform.position = Vector3.up * 20;
-			rigidbody.AddForce(Vector3.down);
+            float horiz = Random.Range(-333, 333) * 1f;
+			rigidbody.AddForce(new Vector3(horiz, -1, 0));
 		}
 	}
 }

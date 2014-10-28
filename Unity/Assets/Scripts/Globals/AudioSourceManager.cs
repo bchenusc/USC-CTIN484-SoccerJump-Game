@@ -45,6 +45,7 @@ public class AudioSourceManager : MonoBehaviour {
 	    audioSource.volume = vol;
 	    audioSource.Play();
 	}
+	
 	IEnumerator playSound(SoundClip clip)
 	{
 		float time = clip.clip.length;

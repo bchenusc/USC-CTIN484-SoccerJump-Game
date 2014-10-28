@@ -43,20 +43,15 @@ public class SoundManager : Singleton {
 		sounds.Add(sound10);
 		music = GameObject.Find("MusicSource");
 		sounds.Add(music);
-//		playMusic ("music", 0.25f);
+//		playMusic(Resources.Load("Audio/cheer") as AudioClip, 1f);
 	}
 	
-	// temp hack - start
-	public AudioClip goSound;
-	public AudioClip countSound;
-	public AudioClip scoreSound;
-	public AudioClip jumpSound;
-	public AudioClip booSound;
-//	public AudioClip testMusic;
 	public void playMusic(string clip, float vol = 1)
 	{
-		addMusic(findClip(clip), vol);
+		if (sounds.Count == 0 || sounds[0] == null) populateList();
+		music.GetComponent<AudioSourceManager>().playMusic(Resources.Load(clip) as AudioClip, vol);
 	}
+	
 	public void play(string clip)
 	{
 		play(clip, false, 1f);
@@ -67,30 +62,31 @@ public class SoundManager : Singleton {
 	}
 	public void play(string clip, bool loop, float vol = 1)
 	{
-		addSound(findClip(clip), false, vol);
-	}
-	AudioClip findClip(string clip)
-	{
-		switch (clip)
-		{
-			case "count": return countSound;
-			case "go": return goSound;
-			case "score": return scoreSound;
-			case "jump": return jumpSound;
-			case "boo": return booSound;
-//			case "music": return testMusic;
-		}
-		return null;
-	}
-	// temp hack - end
-	
-	public void addMusic(AudioClip clip, float vol = 1f)
-	{
 		if (sounds.Count == 0 || sounds[0] == null) populateList();
-		music.GetComponent<AudioSourceManager>().playMusic(clip, vol);
+		int minIndex = 0; int minCount = sound1.GetComponent<AudioSourceManager>().getCount();
+		for (int i = 1; i < sounds.Count; i++)
+		{
+			if (minCount == 0) break;
+			else
+			{
+				GameObject sound = sounds[i];
+				int iCount = sound.GetComponent<AudioSourceManager>().getCount();
+				if (sound.GetComponent<AudioSourceManager>().isLooping()) iCount += 1000;
+				if (minCount > iCount)
+				{
+					minIndex = i;
+					minCount = iCount;
+				}
+			}
+		}
+		sounds[minIndex].GetComponent<AudioSourceManager>().add(Resources.Load(clip) as AudioClip, loop, vol);
 	}
 	
-	public void addSound(AudioClip clip, bool loop, float vol = 1f)
+	public void play(List<string> clips)
+	{
+		play(clips, 1f);
+	}
+	public void play(List<string> clips, float vol = 1f)
 	{
 		if (sounds.Count == 0 || sounds[0] == null) populateList();
 		int minIndex = 0; int minCount = sound1.GetComponent<AudioSourceManager>().getCount();
@@ -109,28 +105,7 @@ public class SoundManager : Singleton {
 				}
 			}
 		}
-		sounds[minIndex].GetComponent<AudioSourceManager>().add(clip, loop, vol);
-	}
-	public void addSounds(List<AudioClip> clips, float vol = 1f)
-	{
-		if (sounds.Count == 0 || sounds[0] == null) populateList();
-		int minIndex = 0; int minCount = sound1.GetComponent<AudioSourceManager>().getCount();
-		for (int i = 1; i < sounds.Count; i++)
-		{
-			if (minCount == 0) break;
-			else
-			{
-				GameObject sound = sounds[i];
-				int iCount = sound.GetComponent<AudioSourceManager>().getCount();
-				if (sound.GetComponent<AudioSourceManager>().isLooping()) iCount += 1000;
-				if (minCount > iCount)
-				{
-					minIndex = i;
-					minCount = iCount;
-				}
-			}
-		}
-		foreach (AudioClip clip in clips) sounds[minIndex].GetComponent<AudioSourceManager>().add(clip, false, vol);
+		foreach (string clip in clips) sounds[minIndex].GetComponent<AudioSourceManager>().add(Resources.Load(clip) as AudioClip, false, vol);
 	}
 	
 //	public void stop(AudioClip clip) {

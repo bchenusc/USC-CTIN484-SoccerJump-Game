@@ -50,7 +50,7 @@ public class SoccerMode : GameMode {
 		mStartTimerGUI =GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
 		if (mStartTimerGUI == null) return;
 		mStartTimerGUI.text = "3";
-		SingletonObject.Get.getSoundManager().play("count");
+		SingletonObject.Get.getSoundManager().play("Audio/count");
 		
 		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, mTimeTillStart, StartGameModeLoadProcess);
 	}
@@ -58,7 +58,7 @@ public class SoccerMode : GameMode {
 	void GuiStartCounter() {
 		mTimeTillStart --;
 		mStartTimerGUI.text = mTimeTillStart.ToString ();
-		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play("count");
+		if (mTimeTillStart > 0) SingletonObject.Get.getSoundManager().play("Audio/count");
 	}
 
 	public override void ResetLevelDNU ()
@@ -77,7 +77,7 @@ public class SoccerMode : GameMode {
 		ball.rigidbody.isKinematic = false;
 		ball.rigidbody.AddForce (Vector3.down);
 		
-		SingletonObject.Get.getSoundManager().play("go");
+		SingletonObject.Get.getSoundManager().play("Audio/go");
 	}
 
 	public override void PreGameStartEntry ()
@@ -113,21 +113,21 @@ public class SoccerMode : GameMode {
 			// Blue won.
 			if (mLastTouch == 1) {
 				mStartTimerGUI.text = "BLUE SCORED!";
-				SingletonObject.Get.getSoundManager().play("score");
+				SingletonObject.Get.getSoundManager().play("Audio/cheer");
 			}
 			else {
 				mStartTimerGUI.text = "RED OWN GOAL!";
-				SingletonObject.Get.getSoundManager().play("boo");
+				SingletonObject.Get.getSoundManager().play("Audio/boo");
 			}
 		} else if (teamWhoWon == 2) {
 			// Red Won
 			if (mLastTouch == 2) {
 				mStartTimerGUI.text = "RED SCORED!";
-				SingletonObject.Get.getSoundManager().play("score");
+				SingletonObject.Get.getSoundManager().play("Audio/cheer");
 			}
 			else {
 				mStartTimerGUI.text = "BLUE OWN GOAL!";
-				SingletonObject.Get.getSoundManager().play("boo");
+				SingletonObject.Get.getSoundManager().play("Audio/boo");
 			}
 			
 		}

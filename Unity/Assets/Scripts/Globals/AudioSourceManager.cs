@@ -58,7 +58,6 @@ public class AudioSourceManager : MonoBehaviour {
 	}
 	public bool isLooping()
 	{
-		if (playQueue == null) playQueue = new Queue<AudioSource>();
 		if (! isActive()) return false;
 		else return playQueue.Peek().loop;
 	}

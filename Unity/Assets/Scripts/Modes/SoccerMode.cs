@@ -23,6 +23,8 @@ public class SoccerMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
+		SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
+		
 		if (GameObject.Find ("StartTimer") == null)
 			return;
 		if (SingletonObject.Get.getGameState ().mGameState != GameState.GAMESTATE.SOCCER_GAME)

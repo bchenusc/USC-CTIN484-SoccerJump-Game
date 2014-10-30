@@ -5,6 +5,8 @@ public class MenuMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
+		Time.timeScale = 0.5f;
+
 	}
 
 	public override void ResetLevelDNU ()
@@ -13,6 +15,7 @@ public class MenuMode : GameMode {
 
 	public override void LoadGameMode ()
 	{
+
 	}
 
 	public override void PreGameStartEntry ()

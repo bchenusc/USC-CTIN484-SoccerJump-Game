@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
 
 	private Vector3 spawnPosition;
+	private Vector3 initCenterOfMass;
 
 	private event Action CollisionExit;
 
@@ -16,6 +17,7 @@ public class PlayerScript : MonoBehaviour {
 	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
 
 	void Awake() {
+		initCenterOfMass = rigidbody.centerOfMass;
 		spawnPosition = transform.position;
 		// HACK -- Make sure this doesn't break anything in the future.
 		if (transform.name.Contains("1")) {
@@ -51,6 +53,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void OnCollisionExit(Collision c) {
 		mIsGrounded = false;
+		rigidbody.centerOfMass = initCenterOfMass;
 		if (CollisionExit != null) {
 			CollisionExit();
 		}

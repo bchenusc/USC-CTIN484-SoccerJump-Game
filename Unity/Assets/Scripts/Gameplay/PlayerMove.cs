@@ -12,15 +12,15 @@ public class PlayerMove : GameplayObject {
 	private float mMinJumpPower = 950;
 	private float mTiltPower = 3000;
 
+	private Transform ball;
+
 	void Start() {
 		rigidbody.isKinematic = false;
 		pScript = gameObject.GetComponent<PlayerScript> ();
 		SingletonObject.Get.getGameState ().RegisterScriptAsGameplayObject (this);
-
-		RegisterKeys ();
-		RegisterButtons ();
+		GameStart ();
 	}
-
+	
 	void OnLevelWasLoaded(int i) {
 		if (i == 1) {
 			// Check if the game state is game mode.
@@ -33,8 +33,9 @@ public class PlayerMove : GameplayObject {
 
 	// Use this for initialization
 	public override void GameStart () {
-		//RegisterKeys ();
-		//RegisterButtons ();
+		ball = GameObject.Find ("Ball").transform;
+		RegisterKeys ();
+		RegisterButtons ();
 		if (this == null) return;
 		rigidbody.isKinematic = false;
 		rigidbody.AddForce (Vector3.down * 10);
@@ -123,9 +124,9 @@ public class PlayerMove : GameplayObject {
 	private void Jump() {
 		if (this == null) return;
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
-		// Jump in the direction of the up vector.
+
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
-		SingletonObject.Get.getSoundManager().play("Audio/jump", false, 0.25f);
+		SingletonObject.Get.getSoundManager().play("Audio/jump", false, 0.05f);
 		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 

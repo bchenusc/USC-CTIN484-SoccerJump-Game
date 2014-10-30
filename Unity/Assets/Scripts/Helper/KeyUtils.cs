@@ -37,6 +37,9 @@ public class KeyUtils : MonoBehaviour {
 		case KeyCode.Comma: return ",";
 		case KeyCode.LeftBracket: return "[";
 		case KeyCode.RightBracket: return "]";
+		case KeyCode.UpArrow: return "UP";
+		case KeyCode.LeftArrow: return "<-";
+		case KeyCode.RightArrow: return "->";
 		default: return key.ToString();
 		}
 	}

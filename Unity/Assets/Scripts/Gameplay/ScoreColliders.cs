@@ -16,13 +16,14 @@ public class ScoreColliders : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider c) {
-		if (c.transform.CompareTag("Ball")) {
+		if (c.transform.CompareTag("Ball") && c.GetComponent<BallDestructor>().mBallCanScore) {
 			if (myTeam == 1) {
 				// Add a score to the red team if you score against the blue team.
 				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.AddScore(2);
 			} else {
 				SingletonObject.Get.getGameState().GET_MODE_AS_SOCCER.AddScore(1);
 			}
+			c.GetComponent<BallDestructor>().mBallCanScore = false;
 		}
 	}
 }

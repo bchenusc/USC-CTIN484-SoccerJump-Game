@@ -41,8 +41,9 @@ public class GameState : Singleton {
 #region MonoBehaviour functions
 	void Start(){
 		// Background music
-		SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
+		SingletonObject.Get.getSoundManager().playMusic ("Audio/intro");
 		mMode = ModeFactory (mGameState);
+		mMode.LoadGameMode ();
 		OnLevelWasLoaded (0);
 	}
 
@@ -61,13 +62,20 @@ public class GameState : Singleton {
 		}
 		switch(gs) {
 		case GAMESTATE.MAINMENU: 
-			Instantiate(Object_MenuMode);
+		{
+			GameObject clone = Instantiate(Object_MenuMode) as GameObject;
+			clone.SetActive(true);
+		}
 			break;
-		case GAMESTATE.SOCCER_GAME:
-			Instantiate(Object_SoccerMode);
+		case GAMESTATE.SOCCER_GAME: 
+		{
+			GameObject clone = Instantiate(Object_SoccerMode) as GameObject;
+			clone.SetActive(true);
+		}
 			break;
 		default: break;
 		}
+		OnLevelWasLoaded (0);
 	}
 
 	void OnLevelWasLoaded(int i) {

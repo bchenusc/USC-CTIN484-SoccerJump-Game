@@ -28,6 +28,7 @@ public class ObjectSpawn : MonoBehaviour {
 			y = 15f;
 			Vector3 coord = new Vector3(x, y, 0);
 			GameObject obj = Instantiate(SpawnList[type], coord, Quaternion.identity) as GameObject;
+			obj.transform.parent = transform;
 			obj.AddComponent<ObjDestructor>();
             obj.GetComponent<ObjDestructor>().setSpawner(this);
             objCount++;

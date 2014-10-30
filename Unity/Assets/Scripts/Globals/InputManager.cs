@@ -109,18 +109,21 @@ public class InputManager : Singleton{
 		mEnabledKeys.Clear();
 	}
 	public void RegisterOnKeyDown(ActionKey a) {
+		OnKeyDown -= a;
 		OnKeyDown += a;
 	}
 	public void DeregisterOnKeyDown(ActionKey a) {
 		OnKeyDown -= a;
 	}
 	public void RegisterOnKeyUp(ActionKey a) {
+		OnKeyUp -= a;
 		OnKeyUp += a;
 	}
 	public void DeregisterOnKeyUp(ActionKey a) {
-		OnKeyUp += a;
+		OnKeyUp -= a;
 	}
 	public void RegisterOnKeyHeld(ActionKey a) {
+		OnKeyHeld -= a;
 		OnKeyHeld += a;
 	}
 	public void DeregisterOnKeyHeld(ActionKey a) {

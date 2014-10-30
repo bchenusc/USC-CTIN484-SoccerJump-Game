@@ -4,99 +4,67 @@ using System.Collections.Generic;
 
 public class AudioSourceManager : MonoBehaviour {
 
-	struct SoundClip
+	Queue<AudioSource> playQueue;
+	
+	void Update()
 	{
-		public AudioClip clip;
-		public bool loop;
-		public float vol;
+		if (playQueue == null) playQueue = new Queue<AudioSource>();
+		else if (playQueue.Count > 0)
+		{
+			AudioSource source = playQueue.Peek();
+			if (! source.isPlaying)
+			{
+				Debug.Log(gameObject.name + " " + source.clip.name + " " + source.clip.length);
+				source.Play();
+				if (! source.loop) Invoke("destroyFirst", source.clip.length / 2.07f); // most sounds play twice for some reason...
+			}
+		}
 	}
-
-	Queue<SoundClip> playQueue;
+	
+	void destroyFirst()
+	{
+		if (playQueue.Count > 0) Destroy(playQueue.Dequeue());
+	}
 	
 	public void add(AudioClip clip, bool loop, float vol = 1f)
 	{
-		if (playQueue == null) playQueue = new Queue<SoundClip>();
-		SoundClip sClip = new SoundClip();
-		sClip.clip = clip;
-		sClip.loop = loop;
-		sClip.vol = vol;
-		playQueue.Enqueue(sClip);
-		if (playQueue.Count == 1)
+		if (playQueue == null) playQueue = new Queue<AudioSource>();
+		AudioSource audioSource = null;
+		gameObject.AddComponent<AudioSource>();
+		AudioSource[] sources = gameObject.GetComponents<AudioSource>();
+		foreach (AudioSource source in sources)
 		{
-			StartCoroutine(playSound(sClip));
+			if (source.clip == null) { audioSource = source; break; }
 		}
-	}
-	
-	public void playMusic(AudioClip clip, float vol = 1f)
-	{
-		AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-		if (audioSource == null)
+		if (audioSource != null)
 		{
-			gameObject.AddComponent<AudioSource>();
-			audioSource = gameObject.GetComponent<AudioSource>();
+			audioSource.playOnAwake = false;
+			audioSource.clip = clip;
+			audioSource.loop = loop;
+			audioSource.volume = vol;
+			playQueue.Enqueue(audioSource);
 		}
-		else 
-		{
-			audioSource.Stop();
-		}
-	    audioSource.playOnAwake = false;
-	    audioSource.clip = clip;
-	    audioSource.loop = true;
-	    audioSource.volume = vol;
-	    audioSource.Play();
-	}
-	
-	IEnumerator playSound(SoundClip clip)
-	{
-		float time = clip.clip.length;
-		AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-		if (audioSource == null)
-		{
-			gameObject.AddComponent<AudioSource>();
-			audioSource = gameObject.GetComponent<AudioSource>();
-		}
-		audioSource.playOnAwake = false;
-		audioSource.clip = clip.clip;
-		audioSource.loop = clip.loop;
-		audioSource.volume = clip.vol;
-		audioSource.Play();
-		if (! clip.loop)
-		{
-			yield return new WaitForSeconds(time);
-			if (playQueue.Count == 1)
-			{
-				Destroy(audioSource);
-				playQueue.Dequeue();
-			}
-			else
-			{
-				playQueue.Dequeue();
-				playSound(playQueue.Peek());
-			}
-		}
-		
 	}
 	
 	public bool isActive()
 	{
-		if (playQueue == null) playQueue = new Queue<SoundClip>();
+		if (playQueue == null) playQueue = new Queue<AudioSource>();
 		return (playQueue.Count != 0);
 	}
 	public bool isPlaying(AudioClip clip)
 	{
-		if (playQueue == null) playQueue = new Queue<SoundClip>();
 		if (! isActive()) return false;
 		else return (playQueue.Peek().clip == clip);
 	}
 	public bool isLooping()
 	{
-		if (playQueue == null) playQueue = new Queue<SoundClip>();
+		if (playQueue == null) playQueue = new Queue<AudioSource>();
 		if (! isActive()) return false;
 		else return playQueue.Peek().loop;
 	}
 	public int getCount()
 	{
-		if (playQueue == null) playQueue = new Queue<SoundClip>();
+		if (playQueue == null) playQueue = new Queue<AudioSource>();
 		return playQueue.Count;
 	}
 }

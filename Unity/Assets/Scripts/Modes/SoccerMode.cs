@@ -23,7 +23,7 @@ public class SoccerMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
-		SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
+		//SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
 		
 		if (GameObject.Find ("StartTimer") == null)
 			return;
@@ -49,7 +49,7 @@ public class SoccerMode : GameMode {
 		} else {
 			GameObject.Find ("ObjectSpawner").SetActive(true);
 		}
-		mStartTimerGUI =GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
+		mStartTimerGUI = GameObject.Find ("StartTimer").transform.GetComponent<TextMesh> ();
 		if (mStartTimerGUI == null) return;
 		mStartTimerGUI.text = "3";
 		SingletonObject.Get.getSoundManager().play("Audio/count");

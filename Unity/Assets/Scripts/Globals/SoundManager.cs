@@ -46,10 +46,16 @@ public class SoundManager : Singleton {
 //		playMusic(Resources.Load("Audio/cheer") as AudioClip, 1f);
 	}
 	
+	public void playMusicWithIntro(string track, string intro, float vol = 1)
+	{
+		if (sounds.Count == 0 || sounds[0] == null) populateList();
+		music.GetComponent<AudioSourceManager>().add(Resources.Load(intro) as AudioClip, false, vol);
+		music.GetComponent<AudioSourceManager>().add(Resources.Load(track) as AudioClip, true, vol);
+	}
 	public void playMusic(string clip, float vol = 1)
 	{
 		if (sounds.Count == 0 || sounds[0] == null) populateList();
-		music.GetComponent<AudioSourceManager>().playMusic(Resources.Load(clip) as AudioClip, vol);
+		music.GetComponent<AudioSourceManager>().add(Resources.Load(clip) as AudioClip, true, vol);
 	}
 	
 	public void play(string clip)

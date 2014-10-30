@@ -41,7 +41,7 @@ public class GameState : Singleton {
 #region MonoBehaviour functions
 	void Start(){
 		// Background music
-		SingletonObject.Get.getSoundManager().playMusic ("Audio/intro");
+		SingletonObject.Get.getSoundManager().playMusicWithIntro("Audio/background", "Audio/intro");
 		mMode = ModeFactory (mGameState);
 		mMode.LoadGameMode ();
 		OnLevelWasLoaded (0);

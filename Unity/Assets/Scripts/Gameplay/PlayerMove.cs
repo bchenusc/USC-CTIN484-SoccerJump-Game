@@ -126,7 +126,8 @@ public class PlayerMove : GameplayObject {
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
-		SingletonObject.Get.getSoundManager().play("Audio/jump", false, 0.05f);
+		int soundNum = Random.Range(1,7);
+		SingletonObject.Get.getSoundManager().play("Audio/jump_" + soundNum, false, 2f);
 		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 

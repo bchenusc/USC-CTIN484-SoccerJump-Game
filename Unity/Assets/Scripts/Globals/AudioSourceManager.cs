@@ -14,7 +14,6 @@ public class AudioSourceManager : MonoBehaviour {
 			AudioSource source = playQueue.Peek();
 			if (! source.isPlaying)
 			{
-				Debug.Log(gameObject.name + " " + source.clip.name + " " + source.clip.length);
 				source.Play();
 				if (! source.loop) Invoke("destroyFirst", source.clip.length / 2.07f); // most sounds play twice for some reason...
 			}

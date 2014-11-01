@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SoccerMode : GameMode {
-	private const int MAX_GOALS = 2;
+	private const int MAX_GOALS = 5;
 
 	public int mNumberOfPlayers = 0;
 	public int mObjectSpawnerActive = 0; // 0 Active, 1 No Active

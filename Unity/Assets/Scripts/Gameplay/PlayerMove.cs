@@ -12,7 +12,7 @@ public class PlayerMove : GameplayObject {
 	private float mMinJumpPower = 950;
 	private float mTiltPower = 3000;
 
-	private Transform ball;
+//	private Transform ball;
 
 	void Start() {
 		rigidbody.isKinematic = false;
@@ -33,7 +33,7 @@ public class PlayerMove : GameplayObject {
 
 	// Use this for initialization
 	public override void GameStart () {
-		ball = GameObject.Find ("Ball").transform;
+//		ball = GameObject.Find ("Ball").transform;
 		RegisterKeys ();
 		RegisterButtons ();
 		if (this == null) return;

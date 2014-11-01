@@ -6,23 +6,29 @@ public class AudioSourceManager : MonoBehaviour {
 
 	Queue<AudioSource> playQueue;
 	
+	bool playing = false;
+	
 	void Update()
 	{
 		if (playQueue == null) playQueue = new Queue<AudioSource>();
 		else if (playQueue.Count > 0)
 		{
 			AudioSource source = playQueue.Peek();
+			Debug.Log (source.isPlaying);
 			if (! source.isPlaying)
 			{
-				source.Play();
-				if (! source.loop) Invoke("destroyFirst", source.clip.length / 2.07f); // most sounds play twice for some reason...
+				if (! playing)
+				{
+					source.Play();
+					playing = true;
+				}
+				else
+				{
+					if (playQueue.Count > 0) Destroy(playQueue.Dequeue());
+					playing = false;
+				}
 			}
 		}
-	}
-	
-	void destroyFirst()
-	{
-		if (playQueue.Count > 0) Destroy(playQueue.Dequeue());
 	}
 	
 	public void add(AudioClip clip, bool loop, float vol = 1f)

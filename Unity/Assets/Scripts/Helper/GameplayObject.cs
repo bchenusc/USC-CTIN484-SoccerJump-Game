@@ -7,9 +7,4 @@ public class GameplayObject : MonoBehaviour {
 	public virtual void GameStart () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

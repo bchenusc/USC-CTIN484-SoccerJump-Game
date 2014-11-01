@@ -5,7 +5,7 @@ public class MenuMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
-		Time.timeScale = 0.5f;
+		Time.timeScale = 1.0f;
 
 	}
 

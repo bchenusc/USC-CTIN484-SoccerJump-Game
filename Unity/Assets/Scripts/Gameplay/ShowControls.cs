@@ -34,16 +34,14 @@ public class ShowControls : MonoBehaviour {
 			
 		}
 
-		if (SingletonObject.Get.getGameState().mGameState == GameState.GAMESTATE.SOCCER_GAME) {
-			SingletonObject.Get.getTimer ().Add (gameObject.GetInstanceID () + "hcontrols", HideControls, 3.0f, false);
-		}
+
 	}
 
 	private void HideControls() {
 		// TODO Add a fade out animation here in the future.
 		if (this == null)
 						return;
-		transform.parent.gameObject.SetActive (false);
+		//transform.parent.gameObject.SetActive (false);
 	}
 }
 

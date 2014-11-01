@@ -37,6 +37,7 @@ public class GameState : Singleton {
 
 	private LinkedList<GameplayObject> startScripts = new LinkedList<GameplayObject> ();
 
+	private GameObject[] players;
 
 #region MonoBehaviour functions
 	void Start(){
@@ -45,6 +46,9 @@ public class GameState : Singleton {
 		mMode = ModeFactory (mGameState);
 		mMode.LoadGameMode ();
 		OnLevelWasLoaded (0);
+
+		players = GameObject.FindGameObjectsWithTag ("Player");
+
 	}
 
 	public GameMode ModeFactory(GAMESTATE gs) {
@@ -53,6 +57,55 @@ public class GameState : Singleton {
 		case GAMESTATE.SOCCER_GAME: return new SoccerMode();
 		default: return new MenuMode();
 		}
+	}
+
+	public void MovePlayerToStartingPosition(GAMESTATE gs)
+	{
+
+		switch(gs) {
+		case GAMESTATE.MAINMENU: 
+		{
+			foreach (GameObject g in players)
+			{
+				g.rigidbody.isKinematic = false;
+				g.rigidbody.velocity = Vector3.zero;
+				g.transform.rotation = Quaternion.identity;
+				g.transform.position = g.transform.GetComponent<PlayerGameState>().mMenuPosition;
+				// Turn on controls visibility.
+				foreach(Transform child in g.transform)
+				{
+					if (child.name.Equals("Controls"))
+					{
+						child.gameObject.SetActive(true);
+						break;
+					}
+				}
+			}
+			
+		}
+			break;
+		case GAMESTATE.SOCCER_GAME: 
+		{
+			foreach (GameObject g in players)
+			{
+				g.rigidbody.velocity = Vector3.zero;
+				g.rigidbody.isKinematic = true;
+				g.transform.rotation = Quaternion.identity;
+				g.transform.position = g.transform.GetComponent<PlayerGameState>().mSoccerGamePosition;
+				foreach(Transform child in g.transform)
+				{
+					if (child.name.Equals("Controls"))
+					{
+						child.gameObject.SetActive(false);
+						break;
+					}
+				}
+			}
+		}
+			break;
+		default: break;
+		}
+		
 	}
 
 	// Returns the object to be turned on or off.
@@ -64,6 +117,7 @@ public class GameState : Singleton {
 		case GAMESTATE.MAINMENU: 
 		{
 			GameObject clone = Instantiate(Object_MenuMode) as GameObject;
+			clone.transform.rotation = Quaternion.identity;
 			clone.SetActive(true);
 		}
 			break;
@@ -75,6 +129,8 @@ public class GameState : Singleton {
 			break;
 		default: break;
 		}
+		MovePlayerToStartingPosition (gs);
+
 		OnLevelWasLoaded (0);
 	}
 

@@ -6,8 +6,7 @@ public class PlayerScript : MonoBehaviour {
 	private int mPlayerNumber = 1;
 	public int mPlayableID = 0;
 	public int PlayerNumber { get { return mPlayerNumber; } set { mPlayerNumber = value; } }
-
-	private Vector3 spawnPosition;
+	
 	private Vector3 initCenterOfMass;
 
 	private event Action CollisionExit;
@@ -18,7 +17,6 @@ public class PlayerScript : MonoBehaviour {
 
 	void Awake() {
 		initCenterOfMass = rigidbody.centerOfMass;
-		spawnPosition = transform.position;
 		// HACK -- Make sure this doesn't break anything in the future.
 		if (transform.name.Contains("1")) {
 			mPlayerNumber = 1;
@@ -34,7 +32,7 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionEnter(Collision c) {
 		if (c.gameObject.CompareTag("Deadzone")) {
 			rigidbody.isKinematic = true;
-			transform.position = spawnPosition + Vector3.up * 15;
+			transform.position = transform.GetComponent<PlayerGameState>().mSoccerGamePosition + Vector3.up * 15;
 			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 2.0f, false);
 			return;
 		}

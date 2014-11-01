@@ -27,8 +27,7 @@ public class PlayerMove : GameplayObject {
 			}
 		}
 	}
-
-
+	
 	// Use this for initialization
 	public override void GameStart () {
 		RegisterKeys ();

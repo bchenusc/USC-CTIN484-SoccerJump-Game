@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SoccerMode : GameMode {
-	private const int MAX_GOALS = 5;
+	private const int MAX_GOALS = 2;
 
 	public int mNumberOfPlayers = 0;
 	public int mObjectSpawnerActive = 0; // 0 Active, 1 No Active
@@ -23,22 +23,10 @@ public class SoccerMode : GameMode {
 
 	public override void OnLevelLoaded ()
 	{
-		//SingletonObject.Get.getSoundManager().playMusic ("Audio/background");
-		
 		if (GameObject.Find ("StartTimer") == null)
 			return;
 		if (SingletonObject.Get.getGameState ().mGameState != GameState.GAMESTATE.SOCCER_GAME)
 			return;
-		// Was used for spawning # of avatars.
-//		if (mControlledAvatars == 1) {
-//			Transform players = GameObject.Find ("Players").transform;
-//
-//			foreach (Transform child in players) {
-//				if (child.GetComponent<PlayerScript>().mPlayableID == 2) {
-//					child.gameObject.SetActive(false);
-//				}
-//			}
-//		}
 
 
 		Time.timeScale = 1;
@@ -108,6 +96,16 @@ public class SoccerMode : GameMode {
 		RoundOver (team);
 	}
 
+	public void PlayCheer()
+	{
+		SingletonObject.Get.getSoundManager().play("Audio/cheer", false, 0.3f);
+	}
+
+	public void PlayBoo()
+	{
+		SingletonObject.Get.getSoundManager().play("Audio/boo", false, 0.3f);
+	}
+
 	public void RoundOver(int teamWhoWon) {
 		Time.timeScale = 0.3f;
 		mStartTimerGUI.characterSize = 10;
@@ -115,21 +113,21 @@ public class SoccerMode : GameMode {
 			// Blue won.
 			if (mLastTouch == 1) {
 				mStartTimerGUI.text = "BLUE SCORED!";
-				SingletonObject.Get.getSoundManager().play("Audio/cheer");
+				PlayCheer ();
 			}
 			else {
 				mStartTimerGUI.text = "RED OWN GOAL!";
-				SingletonObject.Get.getSoundManager().play("Audio/boo");
+				PlayBoo();
 			}
 		} else if (teamWhoWon == 2) {
 			// Red Won
 			if (mLastTouch == 2) {
 				mStartTimerGUI.text = "RED SCORED!";
-				SingletonObject.Get.getSoundManager().play("Audio/cheer");
+				PlayCheer();
 			}
 			else {
 				mStartTimerGUI.text = "BLUE OWN GOAL!";
-				SingletonObject.Get.getSoundManager().play("Audio/boo");
+				PlayBoo();
 			}
 			
 		}
@@ -157,7 +155,7 @@ public class SoccerMode : GameMode {
 	}
 
 	public override void ReturnToMainMenu() {
-		SingletonObject.Get.getInputManager ().ClearAllActions ();
+		//SingletonObject.Get.getInputManager ().ClearAllActions ();
 		SingletonObject.Get.getGameState ().JumpToState (GameState.GAMESTATE.MAINMENU);
 	}
 

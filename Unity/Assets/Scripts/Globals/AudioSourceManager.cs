@@ -14,7 +14,6 @@ public class AudioSourceManager : MonoBehaviour {
 		else if (playQueue.Count > 0)
 		{
 			AudioSource source = playQueue.Peek();
-			Debug.Log (source.isPlaying);
 			if (! source.isPlaying)
 			{
 				if (! playing)

@@ -12,8 +12,6 @@ public class PlayerMove : GameplayObject {
 	private float mMinJumpPower = 950;
 	private float mTiltPower = 3000;
 
-//	private Transform ball;
-
 	void Start() {
 		rigidbody.isKinematic = false;
 		pScript = gameObject.GetComponent<PlayerScript> ();
@@ -33,7 +31,6 @@ public class PlayerMove : GameplayObject {
 
 	// Use this for initialization
 	public override void GameStart () {
-//		ball = GameObject.Find ("Ball").transform;
 		RegisterKeys ();
 		RegisterButtons ();
 		if (this == null) return;
@@ -101,16 +98,7 @@ public class PlayerMove : GameplayObject {
 	private void AddForceInDirection(Vector3 direction) {
 		if (this == null)
 			return;
-//		if (!pScript.IsGrounded) {
-			// Allows aerial flipping
 			rigidbody.AddTorque (-Mathf.Sign(direction.x) * Vector3.forward * mTiltPower);
-//		}
-//		} else {
-//			// Does not allow rolling on ground.
-//			if (transform.up.y > 0) {
-//				rigidbody.AddRelativeTorque (Mathf.Sign(direction.x) * Vector3.Dot(Vector3.up, transform.up) * Vector3.forward * 1000);
-//			}
-//		}
 	}
 
 	private void AddMomentumForce(Vector3 direction) {
@@ -127,8 +115,8 @@ public class PlayerMove : GameplayObject {
 
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
 		int soundNum = Random.Range(1,7);
-		SingletonObject.Get.getSoundManager().play("Audio/jump_" + soundNum, false, 2f);
-		SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
+		SingletonObject.Get.getSoundManager().play("Audio/jump_" + soundNum, false, 5f);
+		//SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
 	}
 
 }

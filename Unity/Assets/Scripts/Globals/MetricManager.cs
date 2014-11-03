@@ -19,6 +19,7 @@ public class MetricManager : MonoBehaviour {
 		GenerateMetricsString();
 		string time = System.DateTime.UtcNow.ToString();string dateTime = System.DateTime.Now.ToString(); //Get the time to tack on to the file name
 		time = time.Replace("/", "-"); //Replace slashes with dashes, because Unity thinks they are directories..
+		time = time.Replace(":", "."); //Replace slashes with dashes, because Unity thinks they are directories..
 		string reportFile = "GameName_Metrics_" + time + ".txt"; 
 		File.WriteAllText(reportFile, totalText);
 		//In Editor, this will show up in the project folder root (with Library, Assets, etc.)
@@ -31,7 +32,6 @@ public class MetricManager : MonoBehaviour {
 		{
 			totalText = totalText + str + "\n\n";
 		}
-		Debug.Log(totalText);
 	}
 
 	public void GenerateEntry()
@@ -41,7 +41,6 @@ public class MetricManager : MonoBehaviour {
 			"Number of blue jumps: " + blueJumps + "\n" +
 			"Number of red jumps: " + redJumps;
 		text.Add(createText);
-		Debug.Log(createText);
 		createText = "";
 		scorerString = "";
 		blueJumps = 0;

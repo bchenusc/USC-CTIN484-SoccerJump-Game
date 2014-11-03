@@ -178,23 +178,29 @@ public class SoccerMode : GameMode {
 	}
 
 	private void AddToMetrics(int teamWhoWon, int mLastTouch) {
+		string scorerStr;
+		if (mObjectSpawnerActive == 0) scorerStr = "random obj, ";
+		else scorerStr = "no random obj, ";
 		if (teamWhoWon == 1) {
 			// Blue won.
 			if (mLastTouch == 1) {
-				SingletonObject.Get.getMetricManager().setScorer("blue scored");
+				scorerStr += "blue scored ";
 			}
 			else {
-				SingletonObject.Get.getMetricManager().setScorer("red own goal");
+				scorerStr += "red own goal ";
 			}
 		} else if (teamWhoWon == 2) {
 			// Red Won
 			if (mLastTouch == 2) {
-				SingletonObject.Get.getMetricManager().setScorer("red scored");
+				scorerStr += "red scored ";
 			}
 			else {
-				SingletonObject.Get.getMetricManager().setScorer("blue own goal");
+				scorerStr += "blue own goal ";
 			}
 		}
+		scorerStr += (mTeam1BlueScore + "-" + mTeam2RedScore);
+		SingletonObject.Get.getMetricManager().setScorer(scorerStr);
+		Debug.Log (scorerStr);
 		SingletonObject.Get.getMetricManager().GenerateEntry();
 	}
 

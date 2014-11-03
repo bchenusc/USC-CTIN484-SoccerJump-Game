@@ -112,10 +112,17 @@ public class PlayerMove : GameplayObject {
 		if (this == null) return;
 		if (!pScript.IsGrounded) return; // Must be grounded to jump.
 
+		AddToMetrics();
+
 		rigidbody.AddForce(transform.up * mMinJumpPower, ForceMode.Impulse);
 		int soundNum = Random.Range(1,7);
 		SingletonObject.Get.getSoundManager().play("Audio/jump_" + soundNum, false, 5f);
 		//SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "jump",null,0.1f,false, 0, null);
+	}
+	
+	private void AddToMetrics() {
+		if (this.gameObject.name.Equals("Player1")) SingletonObject.Get.getMetricManager().AddToRed();
+		else SingletonObject.Get.getMetricManager().AddToBlue();
 	}
 
 }

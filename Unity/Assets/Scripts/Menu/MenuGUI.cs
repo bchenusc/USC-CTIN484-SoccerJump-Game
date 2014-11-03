@@ -13,6 +13,7 @@ public class MenuGUI : MonoBehaviour {
 		
 		if (GUI.Button (new Rect (Screen.width/2-50, Screen.height/2 + 30, 100, 30), "PLAY")) {
 			// This code is executed when Play is clicked
+			AddToMetrics();
 			SingletonObject.Get.getGameState().JumpToStateWPlayers(GameState.GAMESTATE.SOCCER_GAME, selectionGridInt);
 		}
 		
@@ -20,4 +21,9 @@ public class MenuGUI : MonoBehaviour {
 		
 	}
 	
+	void AddToMetrics()
+	{
+		SingletonObject.Get.getMetricManager().setScorer("menu screen");
+		SingletonObject.Get.getMetricManager().GenerateEntry();
+	}
 }

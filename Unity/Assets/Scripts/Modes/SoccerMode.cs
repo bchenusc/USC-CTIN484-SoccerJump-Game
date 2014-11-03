@@ -131,6 +131,7 @@ public class SoccerMode : GameMode {
 			}
 			
 		}
+		AddToMetrics(teamWhoWon, mLastTouch);
 		mStartTimerGUI.transform.gameObject.SetActive (true);
 
 		// Can put endless mode here:
@@ -176,8 +177,25 @@ public class SoccerMode : GameMode {
 		UpdateScoreLabels -= a;
 	}
 
-
-
-
+	private void AddToMetrics(int teamWhoWon, int mLastTouch) {
+		if (teamWhoWon == 1) {
+			// Blue won.
+			if (mLastTouch == 1) {
+				SingletonObject.Get.getMetricManager().setScorer("blue scored");
+			}
+			else {
+				SingletonObject.Get.getMetricManager().setScorer("red own goal");
+			}
+		} else if (teamWhoWon == 2) {
+			// Red Won
+			if (mLastTouch == 2) {
+				SingletonObject.Get.getMetricManager().setScorer("red scored");
+			}
+			else {
+				SingletonObject.Get.getMetricManager().setScorer("blue own goal");
+			}
+		}
+		SingletonObject.Get.getMetricManager().GenerateEntry();
+	}
 
 }

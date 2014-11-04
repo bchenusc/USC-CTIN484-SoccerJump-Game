@@ -66,6 +66,13 @@ public class SoccerMode : GameMode {
 		GameObject ball = GameObject.Find ("Ball");
 		ball.rigidbody.isKinematic = false;
 		ball.rigidbody.AddForce (Vector3.down);
+
+		// Enable all the players
+		Transform players = GameObject.Find ("Players").transform;
+		foreach (Transform child in players)
+		{
+			child.rigidbody.isKinematic = false;
+		}
 		
 		SingletonObject.Get.getSoundManager().play("Audio/go");
 	}

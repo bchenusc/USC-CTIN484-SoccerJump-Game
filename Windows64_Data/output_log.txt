@@ -1,0 +1,25 @@
+Initialize engine version: 4.3.1f1 (cebd4d9b5122)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     1990 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+- Completed reload, in  0.057 seconds
+desktop: 1920x1080 60Hz; virtual: 3520x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Brian\Documents\School\Fall2014\SoccerJump\Windows64_Data\Managed\Boo.Lang.dll (this message is harmless)

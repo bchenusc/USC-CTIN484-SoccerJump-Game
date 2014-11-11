@@ -240,6 +240,11 @@ public class SoccerMode : GameMode {
 
 	public override void ReturnToMainMenu() {
 		//SingletonObject.Get.getInputManager ().ClearAllActions ();
+		GameObject[] balls = GameObject.FindGameObjectsWithTag ("Ball");
+		foreach (GameObject b in balls)
+		{
+			GameObject.Destroy(b);
+		}
 		SingletonObject.Get.getGameState ().JumpToState (GameState.GAMESTATE.MAINMENU);
 	}
 

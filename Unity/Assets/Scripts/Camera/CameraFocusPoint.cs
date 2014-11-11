@@ -7,6 +7,7 @@ public class CameraFocusPoint : MonoBehaviour {
 	LinkedList<Transform> players = new LinkedList<Transform>();
 	Vector3 initialPosition;
 	Vector3 GotoLocation;
+	Vector3 curVelocity = Vector3.zero;
 
 	void Start()
 	{
@@ -26,7 +27,7 @@ public class CameraFocusPoint : MonoBehaviour {
 	{
 		// Keep the focal point between all the players.
 		AverageVectorsOfPlayers ();
-		transform.position = Vector3.MoveTowards(transform.position, GotoLocation, Time.deltaTime * 2);
+		transform.position = Vector3.SmoothDamp(transform.position, GotoLocation, ref curVelocity, 2);
 
 
 	}

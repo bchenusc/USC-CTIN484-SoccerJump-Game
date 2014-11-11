@@ -10,7 +10,7 @@ public class EditorGUIExtension
 	/// </summary>
 	public static void ArrayField (SerializedProperty property)
 	{
-		EditorGUIUtility.LookLikeInspector ();
+//		EditorGUIUtility.LookLikeInspector ();
 		bool wasEnabled = GUI.enabled;
 		int prevIdentLevel = EditorGUI.indentLevel;
 		
@@ -63,7 +63,7 @@ public class EditorGUIExtension
 	public static string[] ArrayFoldout(string label, string[] array, ref bool foldout)
 	{
 		EditorGUILayout.BeginVertical();
-		EditorGUIUtility.LookLikeInspector();
+//		EditorGUIUtility.LookLikeInspector();
 		foldout = EditorGUILayout.Foldout(foldout, label);
 		string[] newArray = array;
 		if (foldout)

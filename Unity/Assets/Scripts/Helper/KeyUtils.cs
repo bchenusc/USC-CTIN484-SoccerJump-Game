@@ -38,8 +38,8 @@ public class KeyUtils : MonoBehaviour {
 		case KeyCode.LeftBracket: return "[";
 		case KeyCode.RightBracket: return "]";
 		case KeyCode.UpArrow: return "UP";
-		case KeyCode.LeftArrow: return "<-";
-		case KeyCode.RightArrow: return "->";
+		case KeyCode.LeftArrow: return "LF";
+		case KeyCode.RightArrow: return "RT";
 		default: return key.ToString();
 		}
 	}

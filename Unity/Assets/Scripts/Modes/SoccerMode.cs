@@ -10,6 +10,12 @@ public class SoccerMode : GameMode {
 	private int mTeam1BlueScore = 0;
 	private int mTeam2RedScore = 0;
 	private Action UpdateScoreLabels;
+
+	Transform[] redCameras = new Transform[3];
+	Transform[] blueCameras = new Transform[3];
+	Camera mainCamera;
+	int cameraIndex = 0;
+	bool redScored = false;
 	
 	private int mLastTouch = 0;  // 1 = blue, 2 = red
 	
@@ -43,6 +49,20 @@ public class SoccerMode : GameMode {
 		SingletonObject.Get.getSoundManager().play("Audio/count");
 		
 		SingletonObject.Get.getTimer ().Add ("GameModeStart", GuiStartCounter, 1.0f, false, mTimeTillStart, StartGameModeLoadProcess);
+
+		Transform temp = GameObject.Find ("RedCamera").transform;
+		// Find all the switchable cameras.
+		for (int i=0; i<3;i++)
+		{
+			redCameras[i] = temp.GetChild(i);
+		}
+		temp = GameObject.Find ("BlueCamera").transform;
+		// Find all the switchable cameras.
+		for (int i=0; i<3;i++)
+		{
+			blueCameras[i] = temp.GetChild(i);
+		}
+
 	}
 
 	void GuiStartCounter() {
@@ -71,9 +91,10 @@ public class SoccerMode : GameMode {
 		Transform players = GameObject.Find ("Players").transform;
 		foreach (Transform child in players)
 		{
+			if (child.rigidbody)
 			child.rigidbody.isKinematic = false;
 		}
-		
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").camera;
 		SingletonObject.Get.getSoundManager().play("Audio/go");
 	}
 
@@ -87,6 +108,57 @@ public class SoccerMode : GameMode {
 
 	}
 
+	void PlayerCameraSnap()
+	{
+		SingletonObject.Get.getSoundManager ().play ("Audio/menu_beep_1");
+	}
+
+	public void CameraSwitcher(){
+		mainCamera.enabled = false;
+		PlayerCameraSnap ();
+		if (!redScored)
+		{
+			redCameras[cameraIndex].gameObject.SetActive(true);
+			SingletonObject.Get.getTimer().Add("camera_changer", SwitchCamera, 0.3f, false, 3, SwitchToMainCamera); 
+		} else {
+			blueCameras[cameraIndex].gameObject.SetActive(true);
+			SingletonObject.Get.getTimer().Add("camera_changer", SwitchCamera, 0.3f, false, 3, SwitchToMainCamera); 
+		}
+	}
+
+	void SwitchCamera()
+	{
+		PlayerCameraSnap ();
+		if (!redScored)
+		{
+			if (cameraIndex + 1 < 3)
+			redCameras[cameraIndex + 1].gameObject.SetActive(true);
+			redCameras[cameraIndex].gameObject.SetActive(false);
+		} else 
+		{
+			if (cameraIndex + 1 < 3)
+			blueCameras[cameraIndex + 1].gameObject.SetActive(true);
+			blueCameras[cameraIndex].gameObject.SetActive(false);
+		}
+
+		++cameraIndex;
+		if (cameraIndex >= 3)
+						cameraIndex = 2;
+	}
+
+	void SwitchToMainCamera()
+	{
+		mainCamera.enabled = true;
+		if (redScored)
+		{
+			redCameras[cameraIndex].gameObject.SetActive(false);
+			cameraIndex = 0;
+		} else 
+		{
+			blueCameras[cameraIndex].gameObject.SetActive(false);
+			cameraIndex = 0;
+		}
+	}
 
 	public void AddScore(int team) {
 		if (team == 1) {
@@ -114,32 +186,36 @@ public class SoccerMode : GameMode {
 	}
 
 	public void RoundOver(int teamWhoWon) {
-		Time.timeScale = 0.3f;
+		Time.timeScale = 0.25f;
 		mStartTimerGUI.characterSize = 10;
 		if (teamWhoWon == 1) {
 			// Blue won.
 			if (mLastTouch == 1) {
 				mStartTimerGUI.text = "BLUE SCORED!";
+				redScored = false;
 				PlayCheer ();
 			}
 			else {
 				mStartTimerGUI.text = "RED OWN GOAL!";
+				redScored = false;
 				PlayBoo();
 			}
 		} else if (teamWhoWon == 2) {
 			// Red Won
 			if (mLastTouch == 2) {
 				mStartTimerGUI.text = "RED SCORED!";
+				redScored = true;
 				PlayCheer();
 			}
 			else {
 				mStartTimerGUI.text = "BLUE OWN GOAL!";
+				redScored = true;
 				PlayBoo();
-			}
-			
+			}	
 		}
 		AddToMetrics(teamWhoWon, mLastTouch);
 		mStartTimerGUI.transform.gameObject.SetActive (true);
+		SingletonObject.Get.getTimer ().Add ("switcherstarter", CameraSwitcher, 0.2f, false);
 
 		// Can put endless mode here:
 		if ((mTeam2RedScore >= MAX_GOALS && mTeam2RedScore > mTeam1BlueScore + 1) || (mTeam1BlueScore >= MAX_GOALS && mTeam1BlueScore > mTeam2RedScore + 1)) {

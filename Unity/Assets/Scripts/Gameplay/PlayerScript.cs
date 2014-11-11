@@ -15,6 +15,8 @@ public class PlayerScript : MonoBehaviour {
 	private bool mIsGrounded = false;
 	public bool IsGrounded { get { return mIsGrounded; } set { mIsGrounded = value;}}
 
+	bool PlayThudSound = false;
+
 	void Awake() {
 		initCenterOfMass = rigidbody.centerOfMass;
 		// HACK -- Make sure this doesn't break anything in the future.
@@ -31,10 +33,18 @@ public class PlayerScript : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c) {
 		if (c.gameObject.CompareTag("Deadzone")) {
+			PlayThudSound = true;
 			rigidbody.isKinematic = true;
 			transform.position = transform.GetComponent<PlayerGameState>().mSoccerGamePosition + Vector3.up * 15;
 			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "respawning", RespawnMe, 2.0f, false);
 			return;
+		} else 
+		{
+			if (PlayThudSound)
+			{
+				PlayThudSound = false;
+				SingletonObject.Get.getSoundManager().play ("Audio/whoop_big_thud", false, 2);
+			}
 		}
 	}
 

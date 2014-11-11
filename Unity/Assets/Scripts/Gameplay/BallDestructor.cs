@@ -6,6 +6,11 @@ public class BallDestructor : MonoBehaviour {
 	// HACK -- Fixes double scoring on same round.
 	public bool mBallCanScore = true;
 
+	void Start()
+	{
+		transform.parent = GameObject.Find ("Players").transform;
+	}
+
 	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.CompareTag("Deadzone")) {
 			mBallCanScore = true;

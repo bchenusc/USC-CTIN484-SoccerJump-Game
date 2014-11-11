@@ -49,8 +49,8 @@ public class InputManager : Singleton{
 	// Remove Functions if not needed.
 	void Update () {
 		//HACK - REMOVE
-		if (Input.GetKeyDown(KeyCode.R)) {
-			SingletonObject.Get.getGameState().ResetLevel();
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			SingletonObject.Get.getGameState().EscapePressed();
 			return;
 		}
 		if (OnMouseClick != null) {

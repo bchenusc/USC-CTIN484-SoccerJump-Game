@@ -9,8 +9,10 @@ public class PlayerMove : GameplayObject {
 	private PlayerScript pScript;
 
 	// Value will be set through InputManager.
-	private float mMinJumpPower = 900;
+	private float mMinJumpPower = 800;
 	private float mTiltPower = 3000;
+
+	bool canPlayFallingSound = false;
 
 	void Start() {
 		rigidbody.isKinematic = false;
@@ -34,6 +36,7 @@ public class PlayerMove : GameplayObject {
 		RegisterButtons ();
 		if (this == null) return;
 		rigidbody.isKinematic = false;
+		canPlayFallingSound = true;
 		rigidbody.AddForce (Vector3.down * 10);
 	}
 	
@@ -60,6 +63,19 @@ public class PlayerMove : GameplayObject {
 		 iManager.DeRegisterAllKeyCodes ();
 		 iManager.DeregisterOnKeyHeld (OnKeyHeld);
 		 iManager.DeregisterOnKeyDown (OnKeyDown);
+	}
+
+	void Update()
+	{
+		if (canPlayFallingSound && transform.position.y < -0.1)
+		{
+			SingletonObject.Get.getSoundManager().play("Audio/fall_sound_1");
+			canPlayFallingSound = false;
+		} 
+		if (transform.position.y > 10)
+		{
+			canPlayFallingSound = true;
+		}
 	}
 
 	void OnDestroy() {

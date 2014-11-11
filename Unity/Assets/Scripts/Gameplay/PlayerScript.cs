@@ -43,6 +43,12 @@ public class PlayerScript : MonoBehaviour {
 			if (PlayThudSound)
 			{
 				PlayThudSound = false;
+				Vector3 effectLocation = transform.position;
+				effectLocation.Set (transform.position.x + 0.5f, 0.5f, transform.position.z);
+				GameObject clone = Instantiate(Resources.Load("Effects/Thud", typeof(GameObject)), 
+				                               effectLocation , 
+				                               Quaternion.AngleAxis(-90, Vector3.right)) as GameObject;
+				Destroy (clone, 1.0f);
 				SingletonObject.Get.getSoundManager().play ("Audio/whoop_big_thud", false, 2);
 			}
 		}

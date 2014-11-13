@@ -27,7 +27,7 @@ public class CloudPlatformSpawner : MonoBehaviour {
 		Transform clone = Instantiate(cloudPrefabs[Random.Range (0, cloudPrefabs.Length)],
 		                                           spawnPosition, Quaternion.identity) as Transform;
 		clone.GetComponent<CloudPlatform> ().direction = -direction;
-		
+		clone.tag = "Cloud";
 		SingletonObject.Get.getTimer ().Add (gameObject.GetInstanceID () + cloudTracker+"", SpawnCloudPlatform
 		                                     , Random.Range (minTime, maxTime), false);
 	}

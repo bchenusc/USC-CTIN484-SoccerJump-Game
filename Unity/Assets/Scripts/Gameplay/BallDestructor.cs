@@ -6,7 +6,7 @@ public class BallDestructor : MonoBehaviour {
 	// HACK -- Fixes double scoring on same round.
 	public bool mBallCanScore = true;
 
-	public bool canDrop = true;
+	public bool canDrop = false;
 
 	void Start()
 	{

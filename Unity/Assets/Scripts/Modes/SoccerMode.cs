@@ -82,10 +82,16 @@ public class SoccerMode : GameMode {
 	{
 		mStartTimerGUI.transform.gameObject.SetActive (false);
 		
-		// Enable the ball
-		GameObject ball = GameObject.Find ("Ball");
-		ball.rigidbody.isKinematic = false;
-		ball.rigidbody.AddForce (Vector3.down);
+		// Enable the balls
+		GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+		foreach (GameObject ball in balls)
+		{
+			if (ball.name.Equals("Ball") && ball.GetComponent<BallDestructor>().canDrop)
+			{
+				ball.rigidbody.isKinematic = false;
+				ball.rigidbody.AddForce (Vector3.down);
+			}
+		}
 
 		// Enable all the players
 		Transform players = GameObject.Find ("Players").transform;

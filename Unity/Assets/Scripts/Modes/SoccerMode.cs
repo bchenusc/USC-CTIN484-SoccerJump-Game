@@ -116,12 +116,12 @@ public class SoccerMode : GameMode {
 
 	void PlayerCameraSnap()
 	{
-		SingletonObject.Get.getSoundManager ().play ("Audio/menu_beep_1");
+		SingletonObject.Get.getSoundManager().play ("Audio/camera");
 	}
 
 	public void CameraSwitcher(){
 		mainCamera.enabled = false;
-		PlayerCameraSnap ();
+		PlayerCameraSnap();
 		if (!redScored)
 		{
 			redCameras[cameraIndex].gameObject.SetActive(true);
@@ -273,8 +273,8 @@ public class SoccerMode : GameMode {
 
 	private void AddToMetrics(int teamWhoWon, int mLastTouch) {
 		string scorerStr;
-		if (mObjectSpawnerActive == 0) scorerStr = "random obj, ";
-		else scorerStr = "no random obj, ";
+//		if (mObjectSpawnerActive == 0) scorerStr = "random obj, ";
+//		else scorerStr = "no random obj, ";
 		if (teamWhoWon == 1) {
 			// Blue won.
 			if (mLastTouch == 1) {

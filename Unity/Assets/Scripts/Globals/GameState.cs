@@ -89,6 +89,7 @@ public class GameState : Singleton {
 			foreach (GameObject g in players)
 			{
 				if (!g.rigidbody) continue;
+				g.rigidbody.isKinematic = false;
 				g.rigidbody.velocity = Vector3.zero;
 				g.rigidbody.isKinematic = true;
 				g.transform.rotation = Quaternion.identity;
@@ -188,7 +189,7 @@ public class GameState : Singleton {
 		}
 		if (mGameState == GAMESTATE.SOCCER_GAME)
 		{
-			JumpToState (GameState.GAMESTATE.MAINMENU);
+			GET_MODE_AS_SOCCER.ReturnToMainMenu();
 		}
 	}
 #endregion

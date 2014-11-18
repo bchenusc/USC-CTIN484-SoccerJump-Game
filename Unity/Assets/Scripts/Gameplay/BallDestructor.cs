@@ -13,6 +13,7 @@ public class BallDestructor : MonoBehaviour {
 		transform.parent = GameObject.Find ("Players").transform;
 		if (!canDrop)
 		{
+			rigidbody.velocity = Vector3.zero;
 			rigidbody.isKinematic = true;
 			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "dropping",
 			                                          Drop, 300.0f, false);

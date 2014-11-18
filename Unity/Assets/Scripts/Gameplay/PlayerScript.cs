@@ -46,7 +46,7 @@ public class PlayerScript : MonoBehaviour {
 				if (! (c.gameObject.CompareTag("Player") || c.gameObject.CompareTag("Ball") || c.gameObject.CompareTag("Cloud")))
 				{
 					Vector3 effectLocation = transform.position;
-					effectLocation.Set (transform.position.x + 0.5f, 0.5f, transform.position.z);
+					effectLocation.Set (transform.position.x + 0.5f, transform.position.y - 0.5f, transform.position.z);
 					GameObject clone = Instantiate(Resources.Load("Effects/Thud", typeof(GameObject)), 
 					                               effectLocation , 
 					                               Quaternion.AngleAxis(-90, Vector3.right)) as GameObject;

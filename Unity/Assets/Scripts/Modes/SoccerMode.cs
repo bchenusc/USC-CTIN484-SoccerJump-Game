@@ -99,6 +99,7 @@ public class SoccerMode : GameMode {
 		{
 			if (child.rigidbody)
 			child.rigidbody.isKinematic = false;
+			child.rigidbody.AddForce(Vector3.down);
 		}
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").camera;
 		SingletonObject.Get.getSoundManager().play("Audio/go");

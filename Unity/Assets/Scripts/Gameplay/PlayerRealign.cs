@@ -7,7 +7,7 @@ using System.Collections;
 
 public class PlayerRealign : MonoBehaviour
 {
-	float mRealignForce = 1600; // up force
+	float mRealignForce = 1100; // up force
 	Transform mCenterOfMass;
 
 	PlayerScript pScript;

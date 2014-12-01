@@ -10,7 +10,7 @@ public class PlayerMove : GameplayObject {
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 800;
-	private float mTiltPower = 3000;
+	private float mTiltPower = 2100;
 
 	bool canPlayFallingSound = false;
 

@@ -39,3 +39,9 @@ Player 2
 -- Up Arrow = Jump
 -- Left Arrow = Tilt Left
 -- Right Arrow = Tilt Right
+
+##################################
+#####                        #####
+#####  Jumping With Friends  #####
+#####                        #####
+##################################

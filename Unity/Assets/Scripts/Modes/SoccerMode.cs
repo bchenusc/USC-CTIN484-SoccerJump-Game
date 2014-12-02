@@ -245,7 +245,7 @@ public class SoccerMode : GameMode {
 			// Blue wins
 			mStartTimerGUI.text = "BLUE WINS!!!!!";
 		}
-		SingletonObject.Get.getTimer ().Add ("newRound", ReturnToMainMenu, 4.0f, false);
+		SingletonObject.Get.getTimer ().Add ("newRound", ReturnToMainMenu, 3.0f, false);
 		
 	}
 

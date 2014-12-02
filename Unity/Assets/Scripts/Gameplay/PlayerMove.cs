@@ -10,7 +10,7 @@ public class PlayerMove : GameplayObject {
 
 	// Value will be set through InputManager.
 	private float mMinJumpPower = 800;
-	private float mTiltPower = 2100;
+	private float mTiltPower = 2000;
 
 	bool canPlayFallingSound = false;
 
@@ -119,9 +119,9 @@ public class PlayerMove : GameplayObject {
 	private void AddMomentumForce(Vector3 direction) {
 		if (this == null) return;
 		// Momentum force only added in the air to make flipping feel a little more polished.
-		if (!pScript.IsGrounded) {
+		//if (!pScript.IsGrounded) {
 			rigidbody.AddForceAtPosition (direction * 200 * Time.deltaTime, transform.position);
-		}
+		//}
 	}
 
 	private void Jump() {

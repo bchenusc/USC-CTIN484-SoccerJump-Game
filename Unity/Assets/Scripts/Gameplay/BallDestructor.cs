@@ -6,19 +6,9 @@ public class BallDestructor : MonoBehaviour {
 	// HACK -- Fixes double scoring on same round.
 	public bool mBallCanScore = true;
 
-	public bool canDrop = false;
-
 	void Start()
 	{
 		transform.parent = GameObject.Find ("Players").transform;
-		if (!canDrop)
-		{
-			rigidbody.isKinematic = false;
-			rigidbody.velocity = Vector3.zero;
-			rigidbody.isKinematic = true;
-			SingletonObject.Get.getTimer().Add(gameObject.GetInstanceID() + "dropping",
-			                                          Drop, 300.0f, false);
-		}
 	}
 
 	void Drop()

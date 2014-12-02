@@ -40,6 +40,9 @@ public class GameState : Singleton {
 	private GameObject[] players;
 
 #region MonoBehaviour functions
+	void Awake() {
+		Application.targetFrameRate = 70;
+	}
 	void Start(){
 		// Background music
 		SingletonObject.Get.getSoundManager().playMusicWithIntro("Audio/background-long", "Audio/intro");

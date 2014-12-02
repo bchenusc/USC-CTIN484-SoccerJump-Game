@@ -86,7 +86,7 @@ public class SoccerMode : GameMode {
 		GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
 		foreach (GameObject ball in balls)
 		{
-			if (ball.name.Equals("Ball") && ball.GetComponent<BallDestructor>().canDrop)
+			if (ball.name.Equals("Ball"))
 			{
 				ball.rigidbody.isKinematic = false;
 				ball.rigidbody.AddForce (Vector3.down);
@@ -98,8 +98,11 @@ public class SoccerMode : GameMode {
 		foreach (Transform child in players)
 		{
 			if (child.rigidbody)
-			child.rigidbody.isKinematic = false;
-			child.rigidbody.AddForce(Vector3.down);
+			{
+				child.rigidbody.isKinematic = false;
+				child.rigidbody.AddForce(Vector3.down);
+			}
+
 		}
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").camera;
 		SingletonObject.Get.getSoundManager().play("Audio/go");
@@ -234,6 +237,7 @@ public class SoccerMode : GameMode {
 	}
 
 	void AcknowledgeWinner() {
+		Time.timeScale = 0.5f;
 		if (mTeam2RedScore > mTeam1BlueScore) {
 			// Red wins
 			mStartTimerGUI.text = "RED WINS!!!!!";
@@ -241,11 +245,12 @@ public class SoccerMode : GameMode {
 			// Blue wins
 			mStartTimerGUI.text = "BLUE WINS!!!!!";
 		}
-		SingletonObject.Get.getTimer ().Add ("newRound", ReturnToMainMenu, 0.7f, false);
+		SingletonObject.Get.getTimer ().Add ("newRound", ReturnToMainMenu, 4.0f, false);
 		
 	}
 
 	public override void ReturnToMainMenu() {
+		Time.timeScale = 1;
 		//SingletonObject.Get.getInputManager ().ClearAllActions ();
 		GameObject[] balls = GameObject.FindGameObjectsWithTag ("Ball");
 		foreach (GameObject b in balls)

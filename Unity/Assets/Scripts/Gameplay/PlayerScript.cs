@@ -43,8 +43,7 @@ public class PlayerScript : MonoBehaviour {
 			if (PlayThudSound)
 			{
 				PlayThudSound = false;
-				if (! (c.gameObject.CompareTag("Player") || c.gameObject.CompareTag("Ball") || c.gameObject.CompareTag("Cloud")))
-				{
+
 					Vector3 effectLocation = transform.position;
 					effectLocation.Set (transform.position.x + 0.5f, transform.position.y - 0.5f, transform.position.z);
 					GameObject clone = Instantiate(Resources.Load("Effects/Thud", typeof(GameObject)), 
@@ -52,7 +51,7 @@ public class PlayerScript : MonoBehaviour {
 					                               Quaternion.AngleAxis(-90, Vector3.right)) as GameObject;
 					Destroy (clone, 1.0f);
 					SingletonObject.Get.getSoundManager().play ("Audio/whoop_big_thud", false, 2);
-				}
+
 			}
 		}
 	}
